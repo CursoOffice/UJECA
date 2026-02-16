@@ -6,82 +6,228 @@
 <title>Congreso Juvenil 2026</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<link rel="alternate" href="atom.xml" type="application/atom+xml" title="Atom">
 
+<style>
+/* ===================== GENERAL ===================== */
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#fefefe;color:#111;line-height:1.6;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+section{padding:60px 20px;}
+.fade-in{opacity:0;animation:fadeIn 1s forwards;}
+@keyframes fadeIn{from{opacity:0}to{opacity:1;}}
+
+/* ===================== NAVBAR ===================== */
+.navbar{
+width:100%;
+position:sticky;
+top:0;
+z-index:1000;
+backdrop-filter:blur(10px);
+background:rgba(157,2,8,.85);
+box-shadow:0 4px 12px rgba(0,0,0,.25);
+transition:.3s;
+}
+.nav-container{
+max-width:1200px;
+margin:0 auto;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:10px 20px;
+}
+.logo-container{display:flex;align-items:center;gap:10px;}
+.logo-container img{width:50px;}
+.brand-text strong{display:block;color:#fff;font-size:16px;}
+.brand-text span{font-size:12px;color:#ffe5e5;}
+.nav-links a{
+margin-left:15px;
+padding:6px 14px;
+border-radius:6px;
+transition:0.3s;
+color:#fff;font-weight:500;
+}
+.nav-links a:hover{
+background:#fff;color:#9d0208;
+}
+.menu-toggle{display:none;font-size:28px;color:#fff;cursor:pointer;}
+
+/* ===================== HERO ===================== */
+.hero{
+position:relative;
+text-align:center;
+color:white;
+overflow:hidden;
+height:80vh;
+display:flex;
+align-items:center;
+justify-content:center;
+background:linear-gradient(135deg,#9d0208,#d62828,#ff6b6b);
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+transition:0.5s;
+}
+.hero::before{
+content:"";
+position:absolute;
+top:0;left:0;width:100%;height:100%;
+background:linear-gradient(135deg,#9d0208,#d62828,#ff6b6b);
+opacity:0.4;
+z-index:0;
+animation:bgMove 15s ease infinite;
+}
+@keyframes bgMove{0%{background-position:0 0}50%{background-position:100% 100%}100%{background-position:0 0}}
+.hero-content{position:relative;z-index:1;}
+.hero-content img{
+width:120px;
+margin-bottom:20px;
+border-radius:50%;
+box-shadow:0 0 25px rgba(255,255,255,.7);
+animation:float 3s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.hero h1{font-size:36px;margin-bottom:10px;}
+.hero p{font-size:18px;margin-bottom:20px;}
+.btn-primary{
+display:inline-block;
+background:#fff;color:#d62828;font-weight:600;
+padding:12px 28px;border-radius:30px;
+transition:.3s;
+}
+.btn-primary:hover{
+background:#ffdede;color:#9d0208;
+transform:scale(1.05);
+}
+
+/* ===================== COUNTDOWN ===================== */
+.countdown-section{
+text-align:center;
+background:#fff0f0;
+border-radius:15px;
+max-width:500px;margin:40px auto;
+box-shadow:0 6px 20px rgba(0,0,0,.1);
+padding:40px 20px;
+}
+.countdown-section h2{
+font-size:28px;margin-bottom:20px;color:#9d0208;
+}
+.countdown{
+font-size:32px;
+font-weight:700;
+color:#d62828;
+background:white;
+display:inline-block;
+padding:15px 30px;
+border-radius:12px;
+box-shadow:0 6px 15px rgba(0,0,0,.15);
+transition:0.3s;
+}
+.countdown:hover{transform:scale(1.05);}
+
+/* ===================== VIDEO ===================== */
+.video{text-align:center;}
+.video h2{font-size:28px;margin-bottom:20px;color:#9d0208;}
+.video iframe{
+border-radius:15px;
+box-shadow:0 6px 25px rgba(0,0,0,.2);
+transition:.3s;
+}
+.video iframe:hover{transform:scale(1.02);}
+
+/* ===================== FOOTER ===================== */
+footer{
+text-align:center;
+padding:25px;
+background:#9d0208;
+color:white;
+font-size:14px;
+box-shadow:0 -2px 10px rgba(0,0,0,.2);
+margin-top:40px;
+}
+
+/* ===================== RESPONSIVE ===================== */
+@media(max-width:768px){
+.nav-links{display:none;flex-direction:column;background:rgba(157,2,8,0.95);position:absolute;top:60px;right:0;width:200px;padding:15px;border-radius:6px;}
+.nav-links.active{display:flex;}
+.nav-links a{margin:10px 0;}
+.menu-toggle{display:block;}
+.hero h1{font-size:28px;}
+.hero p{font-size:16px;}
+.countdown{font-size:28px;}
+.video h2{font-size:24px;}
+}
+</style>
 </head>
 
 <body>
 
 <nav class="navbar">
-    <div class="nav-container">
-
-        <div class="logo-container">
-            <img src="img/logo.png" alt="Logo">
-            <div class="brand-text">
-                <strong>Congreso Juvenil 2026</strong>
-                <span>Circuito 2 · Zona 6</span>
-            </div>
-        </div>
-
-        <div class="nav-links">
-            <a href="home.html"class="btn-outline">Inicio</a>
-            <a href="Basedatos.html" class="btn-outline">Ver Inscritos</a>
-            <a href="contacto.html" class="btn-outline">Contacto</a>
-        </div>
-
-        <div class="menu-toggle">&#9776;</div>
-
-    </div>
+<div class="nav-container">
+<div class="logo-container">
+<img src="img/logo.png" alt="Logo">
+<div class="brand-text">
+<strong>Congreso Juvenil 2026</strong>
+<span>Circuito 2 · Zona 6</span>
+</div>
+</div>
+<div class="nav-links">
+<a href="home.html">Inicio</a>
+<a href="Basedatos.html">Ver Inscritos</a>
+<a href="contacto.html">Contacto</a>
+</div>
+<div class="menu-toggle">&#9776;</div>
+</div>
 </nav>
 
-<header class="hero">
-    <div class="hero-content">
-        <img src="img/logo.png" alt="Logo Congreso Juvenil">
-        <h1>Congreso Juvenil 2026</h1>
-        <p>Circuito 2 - Zona 6</p>
-        <a href="formulario.html" class="btn-primary">Ir a inscripción</a>
-    </div>
+<header class="hero fade-in" style="background-image:url('img/banner.jpg');">
+<div class="hero-content">
+<img src="img/logo.png" alt="Logo Congreso Juvenil">
+<h1>Congreso Juvenil 2026</h1>
+<p>Circuito 2 - Zona 6</p>
+<a href="formulario.html" class="btn-primary">Ir a inscripción</a>
+</div>
 </header>
-<section>
-<h2>¿Qué es el Congreso Juvenil?</h2>
-<p>Un evento anual que reúne a jóvenes de toda la región para compartir, aprender y crecer en su fe. Es un tiempo de adoración, enseñanza y compañerismo que impacta vidas.</p>
 
-</section>
-<section class="info">
-<h2>Un encuentro que marcará tu vida</h2>
-<p>Un tiempo de adoración, palabra y propósito preparado para la juventud.</p>
+<section class="countdown-section fade-in">
+<h2>Cuenta Regresiva para el Congreso</h2>
+<div class="countdown" id="countdown">Cargando...</div>
 </section>
 
-<section class="info">
-<h2>Galería de Fotos</h2>
-<div class="cards">
-<div class="card"><img src="img/1.png" style="width:100%;border-radius:8px;margin-bottom:10px"><p>Momento 1</p></div>
-<div class="card"><img src="img/2.png" style="width:100%;border-radius:8px;margin-bottom:10px"><p>Momento 2</p></div>
-<div class="card"><img src="img/3.png" style="width:100%;border-radius:8px;margin-bottom:10px"><p>Momento 3</p></div>
-</div>
-</section>
-
-<section class="info">
-<h2>Video Instructivo de Preinscripción</h2>
-<div style="margin-top:30px;display:flex;justify-content:center;">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
-</div>
-</section>
-<section class="invitados">
-<h2>Invitados Especiales</h2>
-<div class="cards">
-<div class="card"><h3>Predicadores</h3><p>Palabra de impacto</p></div>
-<div class="card"><h3>Alabanza</h3><p>Adoración en vivo</p></div>
-<div class="card"><h3>Talleres</h3><p>Crecimiento espiritual</p></div>
-</div>
+<section class="video fade-in">
+<h2>Video Destacado</h2>
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/qZPH2gG3BEE?start=97" title="YouTube video" frameborder="0" allowfullscreen></iframe>
 </section>
 
 <footer>
 © 2026 Unión Juvenil Evangélica del Caribe
 </footer>
 
+<script>
+// ===================== NAV MENU RESPONSIVE =====================
+const toggle = document.querySelector('.menu-toggle');
+const navLinks = document.querySelector('.nav-links');
+toggle.addEventListener('click',()=>{navLinks.classList.toggle('active');});
 
+// ===================== COUNTDOWN =====================
+function updateCountdown() {
+    const targetDate = new Date('December 5, 2026').getTime();
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById('countdown').innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+    if (distance < 0) {
+        document.getElementById('countdown').innerHTML = '¡El Congreso ha comenzado!';
+    }
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
 </script>
 
 </body>

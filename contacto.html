@@ -6,7 +6,8 @@
 <title>Contacto | Congreso Circuito 2 UJECA Zona 6</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
+<link rel="stylesheet" href="style.css">
+<link rel="apple-touch-icon" href="img/logo.png">
 <style>
 :root{
  --rojo:#d62828;
@@ -17,38 +18,6 @@
 
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
 body{background:var(--gris);color:var(--texto)}
-
-/* HEADER */
-header{
-background:white;
-padding:18px 30px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-box-shadow:0 2px 10px rgba(0,0,0,.08);
-}
-
-header h1{font-size:1.3rem}
-
-nav a{
-text-decoration:none;
-margin-left:15px;
-font-weight:600;
-color:#444;
-}
-nav a:hover{color:var(--rojo)}
-
-/* TITULO */
-.titulo{
-text-align:center;
-padding:50px 20px 20px;
-}
-
-.titulo h2{
-font-size:2rem;
-color:var(--rojo);
-margin-bottom:10px;
-}
 
 /* CONTENEDOR */
 .container{
@@ -132,19 +101,108 @@ padding:25px;
 color:#666;
 font-size:14px;
 }
+/* SECCION PERMISOS */
+.permisos{
+max-width:1100px;
+margin:50px auto;
+padding:20px;
+text-align:center;
+}
+
+.permisos h2{
+color:var(--rojo);
+margin-bottom:10px;
+}
+
+.permisos p{
+margin-bottom:25px;
+color:#555;
+}
+
+.permisos-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:25px;
+}
+.permiso-card{
+background:white;
+border-radius:18px;
+padding:30px 25px;
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+transition:.3s;
+
+/* centrado */
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+min-height:220px;
+}
+
+.permiso-card h3{
+color:var(--rojoOscuro);
+margin-bottom:12px;
+}
+
+.permiso-card p{
+margin-bottom:15px;
+max-width:240px;
+}
+
+.descargar{
+background:#0d6efd;
+color:white;
+display:inline-block;
+margin-top:12px;
+}
+
+.descargar:hover{
+background:#0b5ed7;
+}
+.permisos{
+max-width:1100px;
+margin:70px auto;
+padding:20px;
+text-align:center;
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
+.permisos-grid{
+width:100%;
+max-width:900px;
+margin:auto;
+}
+
+
 </style>
 </head>
 
 <body>
 
-<header>
-<h1>Congreso Circuito 2</h1>
-<nav>
-<a href="home.html">Inicio</a>
-<a href="index.html">Preinscripción</a>
-<a href="contacto.html">Contacto</a>
+<nav class="navbar">
+    <div class="nav-container">
+
+        <div class="logo-container">
+            <img src="img/logo.png" alt="Logo">
+            <div class="brand-text">
+                <strong>Congreso Juvenil 2026</strong>
+                <span>Circuito 2 · Zona 6</span>
+            </div>
+        </div>
+
+        <div class="nav-links">
+            <a href="home.html"class="btn-outline">Inicio</a>
+            <a href="Basedatos.html" class="btn-outline">Ver Inscritos</a>
+            <a href="contacto.html" class="btn-outline">Contacto</a>
+        </div>
+
+        <div class="menu-toggle">&#9776;</div>
+
+    </div>
 </nav>
-</header>
 
 <section class="titulo">
 <h2>Contáctanos</h2>
@@ -155,17 +213,17 @@ font-size:14px;
 
 <!-- PERSONA 1 -->
 <div class="card">
-<img src="img/user.png" class="avatar">
+<img src="img/1.png" class="avatar">
 <div class="nombre">Coordinador General</div>
 <div class="cargo">Información del evento</div>
 
-<a class="btn whatsapp" href="https://wa.me/573000000000" target="_blank">WhatsApp</a>
+<a class="btn whatsapp" href="https://wa.me/573194480759" target="_blank">WhatsApp</a>
 <a class="btn llamar" href="tel:+573000000000">Llamar</a>
 </div>
 
 <!-- PERSONA 2 -->
 <div class="card">
-<img src="img/user.png" class="avatar">
+<img src="img/2.png" class="avatar">
 <div class="nombre">Encargado Inscripciones</div>
 <div class="cargo">Soporte de registro</div>
 
@@ -175,20 +233,37 @@ font-size:14px;
 
 <!-- PERSONA 3 -->
 <div class="card">
-<img src="img/user.png" class="avatar">
+<img src="img/3.png" class="avatar">
 <div class="nombre">Logística</div>
 <div class="cargo">Hospedaje y transporte</div>
 
 <a class="btn whatsapp" href="https://wa.me/573000000002" target="_blank">WhatsApp</a>
 <a class="btn llamar" href="tel:+573000000002">Llamar</a>
 </div>
+<section class="permisos">
+<h2>Descarga de Permisos</h2>
+<p>Si el participante es menor de edad, debe presentar los siguientes documentos firmados el día del evento.</p>
+
+<div class="permisos-grid">
+
+<div class="permiso-card">
+<h3>Permiso de Menor de Edad</h3>
+<p>Autorización firmada por padre o acudiente.</p>
+<a href="docs/permiso_menor.docx" download class="btn descargar">Descargar</a>
+</div>
+
+<div class="permiso-card">
+<h3>Responsabilidad Médica</h3>
+<p>Autorización para atención médica en caso de emergencia.</p>
+<a href="docs/permiso_responsabilidad.docx" download class="btn descargar">Descargar</a>
+</div>
+
+</div>
+</section>
+
 
 </div>
 
-<!-- MAPA -->
-<div class="mapa">
-<iframe src="https://maps.google.com/maps?q=Antioquia&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
-</div>
 
 <footer>
 Congreso UJECA Zona 6 © 2026
