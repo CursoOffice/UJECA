@@ -6,112 +6,68 @@
 <title>Congreso Juvenil 2026</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="alternate" href="atom.xml" type="application/atom+xml" title="Atom">
 
-<style>
-:root{
- --rojo:#d62828;
- --rojo-oscuro:#9d0208;
- --gris:#f1f3f5;
- --gris-texto:#495057;
- --gris-footer:#212529;
- --blanco:#ffffff;
-}
-
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-
-body{background:var(--gris);color:var(--gris-texto);}
-
-/* NAVBAR */
-.navbar{
-    position:fixed;width:100%;top:0;
-    display:flex;justify-content:space-between;align-items:center;
-    padding:12px 40px;background:var(--rojo);color:white;z-index:1000;
-}
-.logo-container{display:flex;align-items:center;gap:10px;}
-.logo-container img{height:45px;}
-.nav-btn{
-    background:white;color:var(--rojo);
-    padding:8px 20px;border-radius:50px;text-decoration:none;font-weight:600;
-}
-.nav-btn:hover{background:#ffe5e5}
-
-/* HERO */
-.hero{
-    margin-top:80px;
-    min-height:90vh;
-    display:flex;align-items:center;justify-content:center;
-    text-align:center;color:white;
-    background:url("img/banner.jpg") center/cover no-repeat;
-    position:relative;
-}
-.hero::before{
-    content:"";position:absolute;inset:0;
-    background:linear-gradient(90deg,rgba(214,40,40,.85),rgba(157,2,8,.85));
-}
-.hero-content{position:relative;z-index:1}
-.hero-content img{height:130px;margin-bottom:20px}
-.hero h1{font-size:3rem;margin-bottom:10px}
-.hero p{font-size:1.3rem;margin-bottom:25px}
-
-.btn-primary{
-    background:var(--rojo);color:white;
-    padding:14px 35px;border-radius:50px;text-decoration:none;font-weight:600;
-}
-.btn-primary:hover{background:var(--rojo-oscuro)}
-
-/* SECCIONES */
-section{padding:70px 20px;text-align:center}
-.info{background:white}
-.invitados{background:#e9ecef}
-
-.cards{display:flex;gap:30px;justify-content:center;flex-wrap:wrap;margin-top:40px}
-.card{
-    background:white;width:220px;padding:20px;border-radius:12px;
-    border:1px solid #dee2e6;transition:.3s;
-}
-.card:hover{transform:translateY(-8px)}
-.card h3{color:var(--rojo);margin-top:10px}
-
-/* FOOTER */
-footer{background:var(--gris-footer);color:white;padding:20px;text-align:center}
-
-/* MODAL BLOQUEO */
-.modal{
-position:fixed;inset:0;background:rgba(0,0,0,.65);
-display:flex;justify-content:center;align-items:center;
-z-index:2000;color:white;text-align:center;
-}
-.box{
-background:#212529;padding:40px;border-radius:15px;max-width:350px;
-}
-.countdown{font-size:2rem;margin-top:15px;color:#ffb3b3}
-</style>
 </head>
 
 <body>
 
 <nav class="navbar">
-<div class="logo-container">
-<img src="img/logo.png">
-<b>UJEC Caribe</b>
-</div>
-<a href="form.html" class="nav-btn">Preinscribirme</a>
+    <div class="nav-container">
+
+        <div class="logo-container">
+            <img src="img/logo.png" alt="Logo">
+            <div class="brand-text">
+                <strong>Congreso Juvenil 2026</strong>
+                <span>Circuito 2 · Zona 6</span>
+            </div>
+        </div>
+
+        <div class="nav-links">
+            <a href="home.html"class="btn-outline">Inicio</a>
+            <a href="Basedatos.html" class="btn-outline">Ver Inscritos</a>
+            <a href="contacto.html" class="btn-outline">Contacto</a>
+        </div>
+
+        <div class="menu-toggle">&#9776;</div>
+
+    </div>
 </nav>
 
 <header class="hero">
-<div class="hero-content">
-<img src="img/logo.png">
-<h1>Congreso Juvenil 2026</h1>
-<p>Circuito 2 - Zona 6</p>
-<a href="formulario.html" class="btn-primary">Ir a inscripción</a>
-</div>
+    <div class="hero-content">
+        <img src="img/logo.png" alt="Logo Congreso Juvenil">
+        <h1>Congreso Juvenil 2026</h1>
+        <p>Circuito 2 - Zona 6</p>
+        <a href="formulario.html" class="btn-primary">Ir a inscripción</a>
+    </div>
 </header>
+<section>
+<h2>¿Qué es el Congreso Juvenil?</h2>
+<p>Un evento anual que reúne a jóvenes de toda la región para compartir, aprender y crecer en su fe. Es un tiempo de adoración, enseñanza y compañerismo que impacta vidas.</p>
 
+</section>
 <section class="info">
 <h2>Un encuentro que marcará tu vida</h2>
 <p>Un tiempo de adoración, palabra y propósito preparado para la juventud.</p>
 </section>
 
+<section class="info">
+<h2>Galería de Fotos</h2>
+<div class="cards">
+<div class="card"><img src="img/1.png" style="width:100%;border-radius:8px;margin-bottom:10px"><p>Momento 1</p></div>
+<div class="card"><img src="img/2.png" style="width:100%;border-radius:8px;margin-bottom:10px"><p>Momento 2</p></div>
+<div class="card"><img src="img/3.png" style="width:100%;border-radius:8px;margin-bottom:10px"><p>Momento 3</p></div>
+</div>
+</section>
+
+<section class="info">
+<h2>Video Instructivo de Preinscripción</h2>
+<div style="margin-top:30px;display:flex;justify-content:center;">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+</div>
+</section>
 <section class="invitados">
 <h2>Invitados Especiales</h2>
 <div class="cards">
@@ -125,32 +81,8 @@ background:#212529;padding:40px;border-radius:15px;max-width:350px;
 © 2026 Unión Juvenil Evangélica del Caribe
 </footer>
 
-<!-- BLOQUEO HASTA 15 FEB -->
-<div class="modal" id="bloqueo">
-<div class="box">
-<h2>Inscripciones aún no disponibles</h2>
-<p>Se habilitan el 15 de febrero 2026</p>
-<div class="countdown" id="contador"></div>
-</div>
-</div>
 
-<script>
-const fecha = new Date("Feb 15, 2026 00:00:00").getTime();
-const modal = document.getElementById("bloqueo");
-
-setInterval(()=>{
-const ahora = new Date().getTime();
-const faltan = fecha - ahora;
-
-if(faltan<=0){modal.style.display="none";return;}
-
-const d=Math.floor(faltan/(1000*60*60*24));
-const h=Math.floor((faltan%(1000*60*60*24))/(1000*60*60));
-const m=Math.floor((faltan%(1000*60*60))/(1000*60));
-document.getElementById("contador").innerHTML=`${d}d ${h}h ${m}m`;
-},1000);
 </script>
 
 </body>
 </html>
-
