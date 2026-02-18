@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inscripción Oficial</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#f3f4f6,#e5e7eb);
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.container{
+    width:100%;
+    max-width:900px;
+    padding:20px;
+}
+
+form{
+    background:white;
+    padding:35px;
+    border-radius:18px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.1);
+    border-top:6px solid #d60000;
+}
+
+h2{
+    text-align:center;
+    margin-bottom:10px;
+    font-weight:700;
+    color:#111827;
+}
+
+#cupos{
+    text-align:center;
+    font-size:18px;
+    margin-bottom:25px;
+    color:#d60000;
+    font-weight:600;
+}
+
+h3{
+    margin-top:25px;
+    margin-bottom:10px;
+    color:#d60000;
+    font-weight:600;
+}
+
+input,select,textarea{
+    width:100%;
+    padding:12px;
+    margin:6px 0;
+    border-radius:10px;
+    border:1px solid #d1d5db;
+    background:#f9fafb;
+    transition:0.25s;
+}
+
+input:focus,select:focus,textarea:focus{
+    outline:none;
+    border:1px solid #d60000;
+    box-shadow:0 0 0 3px rgba(214,0,0,0.15);
+    background:white;
+}
+
+button{
+    background:#d60000;
+    color:white;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    width:100%;
+    font-size:16px;
+    margin-top:20px;
+    cursor:pointer;
+    transition:0.25s;
+    font-weight:600;
+}
+
+button:hover{
+    background:#b00000;
+    transform:translateY(-2px);
+}
+
+#estado{
+    margin-top:20px;
+    text-align:center;
+    font-weight:600;
+    font-size:16px;
+    color:#111827;
+}
+
+/* MODAL */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.4);
+    backdrop-filter:blur(4px);
+    align-items:center;
+    justify-content:center;
+    z-index:999;
+}
+
+.modal-content{
+    background:white;
+    padding:35px;
+    border-radius:18px;
+    text-align:center;
+    width:90%;
+    max-width:400px;
+    animation:zoomIn 0.3s ease;
+    box-shadow:0 20px 40px rgba(0,0,0,0.2);
+}
+
+.modal-content h2{
+    color:#d60000;
+    margin-bottom:15px;
+}
+
+.modal-content button{
+    margin-top:20px;
+    background:#d60000;
+    color:white;
+    border:none;
+    padding:12px 25px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.modal-content button:hover{
+    background:#b00000;
+}
+
+/* MODAL BIENVENIDA */
+.modal-bienvenida{
+    display:flex;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.5);
+    backdrop-filter:blur(5px);
+    align-items:center;
+    justify-content:center;
+    z-index:2000;
+}
+
+.modal-bienvenida-content{
+    background:linear-gradient(135deg,#ffffff,#f9fafb);
+    padding:50px 40px;
+    border-radius:20px;
+    text-align:center;
+    width:90%;
+    max-width:500px;
+    animation:slideDown 0.4s ease;
+    box-shadow:0 25px 50px rgba(0,0,0,0.25);
+    border-top:6px solid #d60000;
+}
+
+.modal-bienvenida-content h1{
+    font-size:32px;
+    color:#111827;
+    margin-bottom:10px;
+    font-weight:700;
+}
+
+.modal-bienvenida-content .subtitulo{
+    font-size:18px;
+    color:#d60000;
+    margin-bottom:20px;
+    font-weight:600;
+}
+
+.modal-bienvenida-content p{
+    color:#4b5563;
+    font-size:15px;
+    line-height:1.6;
+    margin-bottom:15px;
+}
+
+.modal-bienvenida-content .icono{
+    font-size:60px;
+    margin-bottom:20px;
+}
+
+.modal-bienvenida-content button{
+    background:#d60000;
+    color:white;
+    padding:14px 40px;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+    margin-top:25px;
+    cursor:pointer;
+    font-weight:600;
+    transition:0.25s;
+    width:auto;
+}
+
+.modal-bienvenida-content button:hover{
+    background:#b00000;
+    transform:translateY(-2px);
+}
+
+@keyframes zoomIn{
+    from{transform:scale(0.8);opacity:0;}
+    to{transform:scale(1);opacity:1;}
+}
+
+@keyframes slideDown{
+    from{transform:translateY(-50px);opacity:0;}
+    to{transform:translateY(0);opacity:1;}
+}
+
+/* HEADER SUPERIOR */
+
+.topbar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:70px;
+    background:#b51d1d;
+    color:white;
+    display:flex;
+    align-items:center;
+    z-index:1000;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+.topbar-content{
+    width:100%;
+    max-width:1200px;
+    margin:auto;
+    padding:0 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo-area{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo{
+    height:45px;
+}
+
+.titulo{
+    display:flex;
+    flex-direction:column;
+    line-height:1.1;
+}
+
+.titulo strong{
+    font-size:18px;
+}
+
+.titulo span{
+    font-size:13px;
+    opacity:.9;
+}
+
+.menu a{
+    color:white;
+    text-decoration:none;
+    margin-left:25px;
+    font-weight:500;
+    transition:.2s;
+}
+
+.menu a:hover{
+    opacity:.7;
+}
+
+/* BAJAR CONTENIDO POR HEADER */
+body{
+    padding-top:90px;
+}
+
+</style>
+</head>
+
+<body>
+<header class="topbar">
+    <div class="topbar-content">
+
+        <div class="logo-area">
+            <img src="img/logo.png" class="logo">
+            <div class="titulo">
+                <strong>Congreso Juvenil 2026</strong>
+                <span>Circuito 2 - Zona 6</span>
+            </div>
+        </div>
+
+        <nav class="menu">
+            <a href="home.html">Inicio</a>
+            <a href="Basedatos.html">Ver Inscritos</a>
+            <a href="index.html">Contacto</a>
+        </nav>
+
+    </div>
+</header>
+
+
+<div class="container">
+
+<h2>Formulario Oficial de Inscripción</h2>
+<h3 id="cupos"></h3>
+
+<form id="formulario">
+
+<h3>Datos personales</h3>
+<input name="nombre" placeholder="Nombre completo" required>
+<input name="documento" placeholder="Documento de identidad" required>
+<input name="edad" type="number" placeholder="Edad" required>
+
+<select name="sexo" required>
+<option value="">Sexo</option>
+<option>Masculino</option>
+<option>Femenino</option>
+</select>
+
+<input name="telefono" placeholder="Teléfono" required>
+<input name="correo" type="email" placeholder="Correo electrónico" required>
+
+<h3>Ubicación</h3>
+<input name="pais" value="Colombia">
+<input name="departamento" placeholder="Departamento">
+<input name="municipio" placeholder="Municipio">
+
+<h3>Iglesia</h3>
+<input name="iglesia" placeholder="Nombre de la iglesia">
+<input name="pastor" placeholder="Nombre del pastor">
+
+<select name="asistencia">
+<option value="Sí">Asistirá al evento</option>
+<option value="No">No asistirá</option>
+</select>
+
+<select name="tipo">
+<option>Joven</option>
+<option>Líder</option>
+<option>Pastor</option>
+<option>Invitado</option>
+</select>
+
+<h3>Emergencia</h3>
+<input name="emergencia_nombre" placeholder="Nombre contacto de emergencia">
+<input name="emergencia_tel" placeholder="Teléfono de emergencia">
+
+<h3>Salud</h3>
+<input name="alergias" placeholder="Alergias o condiciones médicas">
+
+<h3>Observaciones</h3>
+<textarea name="observaciones" rows="3"></textarea>
+
+<button type="submit">Enviar inscripción</button>
+<button type="button" onclick="document.getElementById('formulario').reset()">Limpiar formulario</button>
+
+</form>
+
+<p id="estado"></p>
+
+</div>
+
+<!-- MODAL BIENVENIDA -->
+<div id="modalBienvenida" class="modal-bienvenida">
+  <div class="modal-bienvenida-content">
+        <img src="img/logo.png" class="icono">
+          <h1>¡Bienvenido!</h1>
+      <p class="subtitulo">Congreso Juvenil 2026</p>
+      <p>Nos alegra mucho tu interés en participar en este evento espiritual. Por favor completa el formulario con tus datos para confirmar tu inscripción.</p>
+      <p>¡Estamos emocionados de verte en Circuito 2 - Zona 6!</p>
+      <button onclick="cerrarBienvenida()">Continuar</button>
+  </div>
+</div>
+
+<!-- MODAL CONFIRMACIÓN -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+      <h2>Inscripción Confirmada ✅</h2>
+      <p id="modalMensaje"></p>
+      <button onclick="cerrarModal()">Cerrar</button>
+  </div>
+</div>
+
+<script>
+
+const url = "https://script.google.com/macros/s/AKfycbw5f_FwkEYj3TphPFUirQidqCFsnB-gP2WodNpP2g_KRF17ZL0tQacyESenbkiY3q4Z/exec";
+
+async function cargarCupos(){
+    try{
+        let r = await fetch(url);
+        let data = await r.json();
+
+        if(data.disponibles <= 0){
+            document.getElementById("cupos").innerHTML = "🚫 CUPOS AGOTADOS";
+            document.getElementById("formulario").style.display="none";
+        }else{
+            document.getElementById("cupos").innerHTML =
+            "Cupos disponibles: " + data.disponibles + " de 500";
+        }
+
+    }catch(error){
+        document.getElementById("cupos").innerHTML="Cargando cupos...";
+    }
+}
+
+cargarCupos();
+
+function cerrarBienvenida(){
+    document.getElementById("modalBienvenida").style.display="none";
+}
+
+document.getElementById("formulario").addEventListener("submit",async e=>{
+e.preventDefault();
+
+let estado = document.getElementById("estado");
+let datos = Object.fromEntries(new FormData(e.target).entries());
+datos.token = "UJECA2026";
+
+estado.innerText="Enviando...";
+
+try{
+    let r = await fetch(url,{
+        method:"POST",
+        body:JSON.stringify(datos)
+    });
+
+    let j = await r.json();
+
+    if(j.resultado=="denegado"){
+        estado.innerHTML="Error de seguridad";
+        return;
+    }
+
+    if(j.resultado=="lleno"){
+        estado.innerHTML="🚫 Cupos agotados";
+        cargarCupos();
+        return;
+    }
+
+    if(j.resultado=="existe"){
+        estado.innerHTML="⚠ Este correo ya fue registrado";
+        return;
+    }
+
+    document.getElementById("modalMensaje").innerHTML =
+    "Tu inscripción fue registrada correctamente.<br><br><strong>Código:</strong> "+j.codigo;
+
+    document.getElementById("modal").style.display="flex";
+
+    e.target.reset();
+    cargarCupos();
+
+}catch(error){
+    estado.innerHTML="Error al enviar.";
+}
+
+});
+
+function cerrarModal(){
+    document.getElementById("modal").style.display="none";
+}
+
+</script>
+
+</body>
+</html>
