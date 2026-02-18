@@ -197,6 +197,139 @@ margin-top:40px;
 <section class="video fade-in">
 <h2>Video Destacado</h2>
 <iframe width="100%" height="400" src="https://www.youtube.com/embed/qZPH2gG3BEE?start=97" title="YouTube video" frameborder="0" allowfullscreen></iframe>
+<!-- Añade este código justo después de la etiqueta <body> -->
+<div class="modal" id="welcomeModal">
+    <div class="modal-content fade-in">
+        <span class="close">&times;</span>
+        <h2>¡Bienvenido al Congreso Juvenil 2026!</h2>
+        <h3>Instrucciones:</h3>
+        <ul>
+            <li><strong>Inscripción:</strong> Haz clic en "Ir a inscripción" para registrarte</li>
+            <li><strong>Ver Inscritos:</strong> Consulta la base de datos de participantes</li>
+            <li><strong>Contacto:</strong> ¿Preguntas? Comunícate con nosotros</li>
+            <li><strong>Mantente actualizado:</strong> Revisa regularmente fechas y horarios</li>
+        </ul>
+        <button class="btn-primary" onclick="closeModal()">Entendido</button>
+    </div>
+</div>
+
+<!-- Añade estos estilos en la sección <style> -->
+<style>
+/* ===================== MODAL ===================== */
+.modal {
+    display: flex;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 500px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    position: relative;
+}
+
+.modal-content h2 {
+    color: #9d0208;
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.modal-content h3 {
+    color: #d62828;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.modal-content ul {
+    list-style: none;
+    margin-bottom: 25px;
+}
+
+.modal-content li {
+    padding: 8px 0;
+    color: #333;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.close {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #9d0208;
+}
+
+.close:hover {
+    color: #d62828;
+}
+
+.modal.hide {
+    display: none;
+}
+</style>
+
+<!-- Reemplaza el script actual con este -->
+<script>
+// ===================== NAV MENU RESPONSIVE =====================
+const toggle = document.querySelector('.menu-toggle');
+const navLinks = document.querySelector('.nav-links');
+toggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+});
+
+// ===================== MODAL BIENVENIDA =====================
+const modal = document.getElementById('welcomeModal');
+const closeBtn = document.querySelector('.close');
+
+function closeModal() {
+    modal.classList.add('hide');
+    localStorage.setItem('welcomeShown', 'true');
+}
+
+closeBtn.addEventListener('click', closeModal);
+
+window.addEventListener('load', () => {
+    if (!localStorage.getItem('welcomeShown')) {
+        modal.classList.remove('hide');
+    } else {
+        modal.classList.add('hide');
+    }
+});
+
+// ===================== COUNTDOWN =====================
+function updateCountdown() {
+    const targetDate = new Date('December 5, 2026').getTime();
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById('countdown').innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+    if (distance < 0) {
+        document.getElementById('countdown').innerHTML = '¡El Congreso ha comenzado!';
+    }
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+</script>
+
 </section>
 
 <footer>
