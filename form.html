@@ -146,6 +146,90 @@ button:hover{
     background:#b00000;
 }
 
+/* MODAL CONFIRMACIÓN DATOS */
+.modal-confirmacion{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.5);
+    backdrop-filter:blur(5px);
+    align-items:center;
+    justify-content:center;
+    z-index:1500;
+}
+
+.modal-confirmacion-content{
+    background:white;
+    padding:35px;
+    border-radius:18px;
+    width:90%;
+    max-width:500px;
+    animation:zoomIn 0.3s ease;
+    box-shadow:0 20px 50px rgba(0,0,0,0.3);
+    border-top:6px solid #d60000;
+    max-height:80vh;
+    overflow-y:auto;
+}
+
+.modal-confirmacion-content h2{
+    color:#d60000;
+    margin-bottom:20px;
+    text-align:center;
+}
+
+.datos-confirmacion{
+    background:#f9fafb;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:20px;
+}
+
+.dato-item{
+    display:flex;
+    justify-content:space-between;
+    padding:8px 0;
+    border-bottom:1px solid #e5e7eb;
+}
+
+.dato-item:last-child{
+    border-bottom:none;
+}
+
+.dato-label{
+    font-weight:600;
+    color:#d60000;
+}
+
+.dato-valor{
+    color:#111827;
+}
+
+.botones-confirmacion{
+    display:flex;
+    gap:10px;
+}
+
+.botones-confirmacion button{
+    flex:1;
+    margin-top:0;
+}
+
+.btn-cancelar{
+    background:#6b7280;
+}
+
+.btn-cancelar:hover{
+    background:#4b5563;
+}
+
+.btn-confirmar{
+    background:#d60000;
+}
+
+.btn-confirmar:hover{
+    background:#b00000;
+}
+
 /* MODAL BIENVENIDA */
 .modal-bienvenida{
     display:flex;
@@ -391,10 +475,25 @@ body{
   </div>
 </div>
 
-<!-- MODAL CONFIRMACIÓN -->
+<!-- MODAL CONFIRMACIÓN DATOS -->
+<div id="modalConfirmacion" class="modal-confirmacion">
+  <div class="modal-confirmacion-content">
+    <h2>Confirmar Datos de Inscripción</h2>
+    <div class="datos-confirmacion" id="datosConfirmacionContent"></div>
+    <div class="botones-confirmacion">
+      <button type="button" class="btn-cancelar" onclick="cancelarConfirmacion()">Editar</button>
+      <button type="button" class="btn-confirmar" onclick="enviarInscripcion()">Confirmar y Enviar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CONFIRMACIÓN ÉXITO -->
 <div id="modal" class="modal">
   <div class="modal-content">
-      <h2>Inscripción Confirmada ✅</h2>
+        <img src="img/logo.png" class="icono-modal">
+            <h2>¡Inscripción Confirmada!</h2>
+
+      <h2>Apresiado Campista recuerda Validar tu pago e Inscripcion con el area de soporte..✅</h2>
       <p id="modalMensaje"></p>
       <button onclick="cerrarModal()">Cerrar</button>
   </div>
@@ -403,6 +502,7 @@ body{
 <script>
 
 const url = "https://script.google.com/macros/s/AKfycbw5f_FwkEYj3TphPFUirQidqCFsnB-gP2WodNpP2g_KRF17ZL0tQacyESenbkiY3q4Z/exec";
+let datosFormulario = null;
 
 async function cargarCupos(){
     try{
@@ -428,56 +528,106 @@ function cerrarBienvenida(){
     document.getElementById("modalBienvenida").style.display="none";
 }
 
-document.getElementById("formulario").addEventListener("submit",async e=>{
-e.preventDefault();
-
-let estado = document.getElementById("estado");
-let datos = Object.fromEntries(new FormData(e.target).entries());
-datos.token = "UJECA2026";
-
-estado.innerText="Enviando...";
-
-try{
-    let r = await fetch(url,{
-        method:"POST",
-        body:JSON.stringify(datos)
-    });
-
-    let j = await r.json();
-
-    if(j.resultado=="denegado"){
-        estado.innerHTML="Error de seguridad";
-        return;
+function mostrarConfirmacion(datos){
+    datosFormulario = datos;
+    let html = '';
+    
+    const etiquetas = {
+        nombre: 'Nombre',
+        documento: 'Documento',
+        edad: 'Edad',
+        sexo: 'Sexo',
+        telefono: 'Teléfono',
+        correo: 'Correo',
+        pais: 'País',
+        departamento: 'Departamento',
+        municipio: 'Municipio',
+        iglesia: 'Iglesia',
+        pastor: 'Pastor',
+        asistencia: 'Asistencia',
+        tipo: 'Tipo',
+        emergencia_nombre: 'Contacto Emergencia',
+        emergencia_tel: 'Tel. Emergencia',
+        alergias: 'Alergias/Condiciones',
+        observaciones: 'Observaciones'
+    };
+    
+    for(let key in datos){
+        if(key !== 'token' && datos[key]){
+            html += `
+                <div class="dato-item">
+                    <span class="dato-label">${etiquetas[key] || key}:</span>
+                    <span class="dato-valor">${datos[key]}</span>
+                </div>
+            `;
+        }
     }
-
-    if(j.resultado=="lleno"){
-        estado.innerHTML="🚫 Cupos agotados";
-        cargarCupos();
-        return;
-    }
-
-    if(j.resultado=="existe"){
-        estado.innerHTML="⚠ Este correo ya fue registrado";
-        return;
-    }
-
-    document.getElementById("modalMensaje").innerHTML =
-    "Tu inscripción fue registrada correctamente.<br><br><strong>Código:</strong> "+j.codigo;
-
-    document.getElementById("modal").style.display="flex";
-
-    e.target.reset();
-    cargarCupos();
-
-}catch(error){
-    estado.innerHTML="Error al enviar.";
+    
+    document.getElementById("datosConfirmacionContent").innerHTML = html;
+    document.getElementById("modalConfirmacion").style.display = "flex";
 }
 
+function cancelarConfirmacion(){
+    document.getElementById("modalConfirmacion").style.display = "none";
+}
+
+async function enviarInscripcion(){
+    let estado = document.getElementById("estado");
+    estado.innerText="Enviando...";
+    document.getElementById("modalConfirmacion").style.display = "none";
+    
+    try{
+        let r = await fetch(url,{
+            method:"POST",
+            body:JSON.stringify(datosFormulario)
+        });
+
+        let j = await r.json();
+
+        if(j.resultado=="denegado"){
+            estado.innerHTML="Error de seguridad";
+            return;
+        }
+
+        if(j.resultado=="lleno"){
+            estado.innerHTML="🚫 Cupos agotados";
+            cargarCupos();
+            return;
+        }
+
+        if(j.resultado=="existe"){
+            estado.innerHTML="⚠ Este correo ya fue registrado";
+            return;
+        }
+
+        document.getElementById("modalMensaje").innerHTML =
+        "Tu inscripción fue registrada correctamente.<br><br><strong>Código:</strong> "+j.codigo;
+
+        document.getElementById("modal").style.display="flex";
+
+        document.getElementById("formulario").reset();
+        cargarCupos();
+
+    }catch(error){
+        estado.innerHTML="Error al enviar.";
+    }
+}
+
+document.getElementById("formulario").addEventListener("submit",async e=>{
+    e.preventDefault();
+    
+    let datos = Object.fromEntries(new FormData(e.target).entries());
+    datos.token = "UJECA2026";
+    
+    mostrarConfirmacion(datos);
 });
 
 function cerrarModal(){
     document.getElementById("modal").style.display="none";
 }
+let inscritos = JSON.parse(localStorage.getItem('inscritos') || '[]');
+inscritos.push(datosFormulario);
+localStorage.setItem('inscritos', JSON.stringify(inscritos));
 
 </script>
 
