@@ -167,14 +167,16 @@ box-shadow:0 20px 50px rgba(0,0,0,0.3);animation:zoomIn .3s ease;border-top:6px 
 <p id="estado"></p>
 </div>
 
-<!-- MODAL BIENVENIDA -->
 <div id="modalBienvenida" class="modal-bienvenida">
 <div class="modal-bienvenida-content">
 <img src="img/logo.png" class="icono">
+
 <h1>¡Bienvenido!</h1>
-<p>Completa el formulario para confirmar tu inscripción.</p>
+<p>Estimado campista, por favor completa el formulario para confirmar tu inscripción. recuerda que el evento se llevará a cabo del 5 al 8 de noviembre de 2026 en la ciudad de Medellín.</p>
+<p>Si tienes alguna pregunta, no dudes en contactarnos a través de nuestras redes sociales o correo electrónico.</p>
+<p>infocircuito@gmail.com</p>
 <button onclick="cerrarBienvenida()">Continuar</button>
-</div>
+</div> 
 </div>
 
 <!-- MODAL CONFIRMACION -->
@@ -201,98 +203,76 @@ box-shadow:0 20px 50px rgba(0,0,0,0.3);animation:zoomIn .3s ease;border-top:6px 
 <script>
 
 // ===============================
-// MODAL BIENVENIDA SIEMPRE VISIBLE
+// MODAL BIENVENIDA
 // ===============================
-
 document.addEventListener("DOMContentLoaded", () => {
 
     const modal = document.getElementById("modalBienvenida");
-    const btnCerrar = modal.querySelector("button");
 
-    // Mostrar siempre al cargar
     setTimeout(() => {
         modal.style.display = "flex";
     }, 400);
 
-    // Cerrar modal
-    btnCerrar.addEventListener("click", () => {
-        modal.style.display = "none";
-    });
-
 });
+
+// esta función la llama tu botón
+function cerrarBienvenida(){
+    document.getElementById("modalBienvenida").style.display="none";
+}
+
 
 
 // ===============================
-// MODAL CONFIRMAR DATOS
+// CONFIRMAR DATOS ANTES DE ENVIAR
 // ===============================
 
 let datosFormulario = null;
 
-function mostrarConfirmacion(datos){
+function prepararEnvio(){
+
+    const form = document.getElementById("formulario");
+    const datos = Object.fromEntries(new FormData(form).entries());
+
+    datos.token = "UJECA2026";
     datosFormulario = datos;
 
-    let html = '';
-
-    const etiquetas = {
-        nombre: 'Nombre',
-        documento: 'Documento',
-        edad: 'Edad',
-        sexo: 'Sexo',
-        telefono: 'Teléfono',
-        correo: 'Correo',
-        pais: 'País',
-        departamento: 'Departamento',
-        municipio: 'Municipio',
-        iglesia: 'Iglesia',
-        pastor: 'Pastor',
-        asistencia: 'Asistencia',
-        tipo: 'Tipo',
-        emergencia_nombre: 'Contacto Emergencia',
-        emergencia_tel: 'Tel. Emergencia',
-        alergias: 'Alergias/Condiciones',
-        observaciones: 'Observaciones'
-    };
-
-    for(let key in datos){
-        if(key !== 'token' && datos[key]){
-            html += `
-            <div class="dato-item">
-                <span class="dato-label">${etiquetas[key] || key}:</span>
-                <span class="dato-valor">${datos[key]}</span>
-            </div>`;
+    let html='';
+    for(let k in datos){
+        if(k!="token" && datos[k]){
+            html+=`<p><b>${k}:</b> ${datos[k]}</p>`;
         }
     }
 
-    document.getElementById("datosConfirmacionContent").innerHTML = html;
-    document.getElementById("modalConfirmacion").style.display = "flex";
+    document.getElementById("datosConfirmacionContent").innerHTML=html;
+    document.getElementById("modalConfirmacion").style.display="flex";
 }
 
 function cancelarConfirmacion(){
-    document.getElementById("modalConfirmacion").style.display = "none";
+    document.getElementById("modalConfirmacion").style.display="none";
 }
 
 
+
 // ===============================
-// ENVÍO DEL FORMULARIO
+// ENVÍO REAL AL GOOGLE SHEETS
 // ===============================
 
-const url = "TU_URL_DE_GOOGLE_SCRIPT_AQUI";
+const url="TU_URL_GOOGLE_SCRIPT_AQUI";
 
-async function enviarInscripcion(){
+async function enviarFormulario(){
 
-    let estado = document.getElementById("estado");
+    document.getElementById("modalConfirmacion").style.display="none";
+    const estado=document.getElementById("estado");
     estado.innerText="Enviando...";
-
-    document.getElementById("modalConfirmacion").style.display = "none";
 
     try{
 
-        let r = await fetch(url,{
+        let r=await fetch(url,{
             method:"POST",
             body:JSON.stringify(datosFormulario)
         });
 
-        let j = await r.json();
+        let j=await r.json();
 
         if(j.resultado=="lleno"){
             estado.innerHTML="🚫 Cupos agotados";
@@ -300,35 +280,20 @@ async function enviarInscripcion(){
         }
 
         if(j.resultado=="existe"){
-            estado.innerHTML="⚠ Este correo ya fue registrado";
+            estado.innerHTML="⚠ Ya registrado";
             return;
         }
 
-        document.getElementById("modalMensaje").innerHTML =
-        "Tu inscripción fue registrada correctamente.<br><br><strong>Código:</strong> "+j.codigo;
-
         document.getElementById("modal").style.display="flex";
+        document.getElementById("codigoGenerado").innerText=j.codigo;
 
         document.getElementById("formulario").reset();
 
-    }catch(error){
-        estado.innerHTML="Error al enviar.";
+    }catch(e){
+        estado.innerHTML="Error al enviar";
     }
 }
 
-
-// ===============================
-// CAPTURA DEL FORMULARIO
-// ===============================
-
-document.getElementById("formulario").addEventListener("submit", e=>{
-    e.preventDefault();
-
-    let datos = Object.fromEntries(new FormData(e.target).entries());
-    datos.token = "UJECA2026";
-
-    mostrarConfirmacion(datos);
-});
 
 
 // ===============================
@@ -341,6 +306,8 @@ function cerrarModal(){
 
 </script>
 
+
 </body>
 </html>
+
 
