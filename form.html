@@ -97,7 +97,7 @@ box-shadow:0 20px 50px rgba(0,0,0,0.3);animation:zoomIn .3s ease;border-top:6px 
 <div class="logo-area">
 <img src="img/logo.png" class="logo">
 <div class="titulo">
-<strong>Congreso Juvenil 2026</strong>
+<strong>Congreso Juvenil 2026 - Transcendentales</strong>
 <span>Circuito 2 - Zona 6</span>
 </div>
 </div>
@@ -167,6 +167,7 @@ box-shadow:0 20px 50px rgba(0,0,0,0.3);animation:zoomIn .3s ease;border-top:6px 
 <p id="estado"></p>
 </div>
 
+<!-- MODAL BIENVENIDA -->
 <div id="modalBienvenida" class="modal-bienvenida">
 <div class="modal-bienvenida-content">
 <img src="img/logo.png" class="icono">
@@ -176,7 +177,7 @@ box-shadow:0 20px 50px rgba(0,0,0,0.3);animation:zoomIn .3s ease;border-top:6px 
 <p>Si tienes alguna pregunta, no dudes en contactarnos a través de nuestras redes sociales o correo electrónico.</p>
 <p>infocircuito@gmail.com</p>
 <button onclick="cerrarBienvenida()">Continuar</button>
-</div> 
+</div>
 </div>
 
 <!-- MODAL CONFIRMACION -->
@@ -195,119 +196,79 @@ box-shadow:0 20px 50px rgba(0,0,0,0.3);animation:zoomIn .3s ease;border-top:6px 
 <div id="modal" class="modal">
 <div class="modal-content">
 <h2>¡Inscripción Confirmada!</h2>
+<h2>Estimado campista, tu inscripción ha sido registrada exitosamente.</h2>
 <p id="modalMensaje"></p>
 <button onclick="cerrarModal()">Cerrar</button>
 </div>
 </div>
 
 <script>
+const url="https://script.google.com/macros/s/AKfycbw5f_FwkEYj3TphPFUirQidqCFsnB-gP2WodNpP2g_KRF17ZL0tQacyESenbkiY3q4Z/exec";
+let datosFormulario=null;
 
-// ===============================
-// MODAL BIENVENIDA
-// ===============================
-document.addEventListener("DOMContentLoaded", () => {
-
-    const modal = document.getElementById("modalBienvenida");
-
-    setTimeout(() => {
-        modal.style.display = "flex";
-    }, 400);
-
+window.addEventListener("load",()=>{
+if(localStorage.getItem("bienvenidaVista"))
+document.getElementById("modalBienvenida").style.display="none";
+else
+document.getElementById("modalBienvenida").style.display="flex";
 });
 
-// esta función la llama tu botón
 function cerrarBienvenida(){
-    document.getElementById("modalBienvenida").style.display="none";
+document.getElementById("modalBienvenida").style.display="none";
+localStorage.setItem("bienvenidaVista","si");
 }
 
-
-
-// ===============================
-// CONFIRMAR DATOS ANTES DE ENVIAR
-// ===============================
-
-let datosFormulario = null;
+async function cargarCupos(){
+try{
+let r=await fetch(url);
+let data=await r.json();
+document.getElementById("cupos").innerHTML="Cupos disponibles: "+data.disponibles+" de 500";
+}catch{document.getElementById("cupos").innerHTML="Cargando cupos...";}
+}
+cargarCupos();
 
 function prepararEnvio(){
+let form=document.getElementById("formulario");
+let datos=Object.fromEntries(new FormData(form).entries());
+datos.token="UJECA2026";
+mostrarConfirmacion(datos);
+}
 
-    const form = document.getElementById("formulario");
-    const datos = Object.fromEntries(new FormData(form).entries());
-
-    datos.token = "UJECA2026";
-    datosFormulario = datos;
-
-    let html='';
-    for(let k in datos){
-        if(k!="token" && datos[k]){
-            html+=`<p><b>${k}:</b> ${datos[k]}</p>`;
-        }
-    }
-
-    document.getElementById("datosConfirmacionContent").innerHTML=html;
-    document.getElementById("modalConfirmacion").style.display="flex";
+function mostrarConfirmacion(datos){
+datosFormulario=datos;
+let html="";
+for(let k in datos){
+if(k!=="token"&&datos[k]){
+html+=`<div class="dato-item"><span class="dato-label">${k}</span><span>${datos[k]}</span></div>`;
+}}
+document.getElementById("datosConfirmacionContent").innerHTML=html;
+document.getElementById("modalConfirmacion").style.display="flex";
 }
 
 function cancelarConfirmacion(){
-    document.getElementById("modalConfirmacion").style.display="none";
+document.getElementById("modalConfirmacion").style.display="none";
 }
 
+async function enviarInscripcion(){
+document.getElementById("modalConfirmacion").style.display="none";
+let r=await fetch(url,{method:"POST",body:JSON.stringify(datosFormulario)});
+let j=await r.json();
 
+document.getElementById("modalMensaje").innerHTML="Código: "+j.codigo;
+document.getElementById("modal").style.display="flex";
 
-// ===============================
-// ENVÍO REAL AL GOOGLE SHEETS
-// ===============================
+let inscritos=JSON.parse(localStorage.getItem('inscritos')||'[]');
+inscritos.push(datosFormulario);
+localStorage.setItem('inscritos',JSON.stringify(inscritos));
 
-const url="TU_URL_GOOGLE_SCRIPT_AQUI";
-
-async function enviarFormulario(){
-
-    document.getElementById("modalConfirmacion").style.display="none";
-    const estado=document.getElementById("estado");
-    estado.innerText="Enviando...";
-
-    try{
-
-        let r=await fetch(url,{
-            method:"POST",
-            body:JSON.stringify(datosFormulario)
-        });
-
-        let j=await r.json();
-
-        if(j.resultado=="lleno"){
-            estado.innerHTML="🚫 Cupos agotados";
-            return;
-        }
-
-        if(j.resultado=="existe"){
-            estado.innerHTML="⚠ Ya registrado";
-            return;
-        }
-
-        document.getElementById("modal").style.display="flex";
-        document.getElementById("codigoGenerado").innerText=j.codigo;
-
-        document.getElementById("formulario").reset();
-
-    }catch(e){
-        estado.innerHTML="Error al enviar";
-    }
+document.getElementById("formulario").reset();
+cargarCupos();
 }
-
-
-
-// ===============================
-// CERRAR MODAL FINAL
-// ===============================
 
 function cerrarModal(){
-    document.getElementById("modal").style.display="none";
+document.getElementById("modal").style.display="none";
 }
-
 </script>
-
 
 </body>
 </html>
-
-
