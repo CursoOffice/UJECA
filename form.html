@@ -206,69 +206,102 @@ box-shadow:0 20px 50px rgba(0,0,0,0.3);animation:zoomIn .3s ease;border-top:6px 
 const url="https://script.google.com/macros/s/AKfycbw5f_FwkEYj3TphPFUirQidqCFsnB-gP2WodNpP2g_KRF17ZL0tQacyESenbkiY3q4Z/exec";
 let datosFormulario=null;
 
+/* =========================
+   MODAL BIENVENIDA
+========================= */
+
 window.addEventListener("load",()=>{
-if(localStorage.getItem("bienvenidaVista"))
-document.getElementById("modalBienvenida").style.display="none";
-else
-document.getElementById("modalBienvenida").style.display="flex";
+    document.getElementById("modalBienvenida").style.display="flex";
 });
 
 function cerrarBienvenida(){
-document.getElementById("modalBienvenida").style.display="none";
-localStorage.setItem("bienvenidaVista","si");
+    document.getElementById("modalBienvenida").style.display="none";
 }
 
+/* =========================
+   CARGAR CUPOS
+========================= */
+
 async function cargarCupos(){
-try{
-let r=await fetch(url);
-let data=await r.json();
-document.getElementById("cupos").innerHTML="Cupos disponibles: "+data.disponibles+" de 500";
-}catch{document.getElementById("cupos").innerHTML="Cargando cupos...";}
+    try{
+        let r=await fetch(url);
+        let data=await r.json();
+        document.getElementById("cupos").innerHTML="Cupos disponibles: "+data.disponibles+" de 500";
+    }catch{
+        document.getElementById("cupos").innerHTML="Cargando cupos...";
+    }
 }
 cargarCupos();
 
+/* =========================
+   PREPARAR ENVÍO
+========================= */
+
 function prepararEnvio(){
-let form=document.getElementById("formulario");
-let datos=Object.fromEntries(new FormData(form).entries());
-datos.token="UJECA2026";
-mostrarConfirmacion(datos);
+    let form=document.getElementById("formulario");
+    let datos=Object.fromEntries(new FormData(form).entries());
+    datos.token="UJECA2026";
+    mostrarConfirmacion(datos);
 }
 
+/* =========================
+   MOSTRAR CONFIRMACIÓN
+========================= */
+
 function mostrarConfirmacion(datos){
-datosFormulario=datos;
-let html="";
-for(let k in datos){
-if(k!=="token"&&datos[k]){
-html+=`<div class="dato-item"><span class="dato-label">${k}</span><span>${datos[k]}</span></div>`;
-}}
-document.getElementById("datosConfirmacionContent").innerHTML=html;
-document.getElementById("modalConfirmacion").style.display="flex";
+    datosFormulario=datos;
+    let html="";
+    for(let k in datos){
+        if(k!=="token"&&datos[k]){
+            html+=`
+            <div class="dato-item">
+                <span class="dato-label">${k}</span>
+                <span>${datos[k]}</span>
+            </div>`;
+        }
+    }
+    document.getElementById("datosConfirmacionContent").innerHTML=html;
+    document.getElementById("modalConfirmacion").style.display="flex";
 }
 
 function cancelarConfirmacion(){
-document.getElementById("modalConfirmacion").style.display="none";
+    document.getElementById("modalConfirmacion").style.display="none";
 }
+
+/* =========================
+   ENVIAR INSCRIPCIÓN
+========================= */
 
 async function enviarInscripcion(){
-document.getElementById("modalConfirmacion").style.display="none";
-let r=await fetch(url,{method:"POST",body:JSON.stringify(datosFormulario)});
-let j=await r.json();
+    document.getElementById("modalConfirmacion").style.display="none";
 
-document.getElementById("modalMensaje").innerHTML="Código: "+j.codigo;
-document.getElementById("modal").style.display="flex";
+    let r=await fetch(url,{
+        method:"POST",
+        body:JSON.stringify(datosFormulario)
+    });
 
-let inscritos=JSON.parse(localStorage.getItem('inscritos')||'[]');
-inscritos.push(datosFormulario);
-localStorage.setItem('inscritos',JSON.stringify(inscritos));
+    let j=await r.json();
 
-document.getElementById("formulario").reset();
-cargarCupos();
+    document.getElementById("modalMensaje").innerHTML="Código: "+j.codigo;
+    document.getElementById("modal").style.display="flex";
+
+    let inscritos=JSON.parse(localStorage.getItem('inscritos')||'[]');
+    inscritos.push(datosFormulario);
+    localStorage.setItem('inscritos',JSON.stringify(inscritos));
+
+    document.getElementById("formulario").reset();
+    cargarCupos();
 }
 
+/* =========================
+   CERRAR MODAL FINAL
+========================= */
+
 function cerrarModal(){
-document.getElementById("modal").style.display="none";
+    document.getElementById("modal").style.display="none";
 }
 </script>
 
 </body>
 </html>
+
