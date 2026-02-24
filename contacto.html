@@ -1,109 +1,124 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Descargar Permiso | Congreso Juvenil 2026</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-<style>
-:root{
- --rojo:#d62828;
- --rojoOscuro:#9d0208;
- --gris:#f1f3f5;
- --texto:#333;
-}
-
-*{
-box-sizing:border-box;
-margin:0;
-padding:0;
-font-family:'Poppins',sans-serif;
-}
-
-body{
-background:linear-gradient(135deg,#f1f3f5,#ffffff);
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-}
-
-.container{
-background:white;
-padding:50px 40px;
-border-radius:20px;
-box-shadow:0 20px 45px rgba(0,0,0,.1);
-text-align:center;
-max-width:500px;
-width:100%;
-}
-
-.logo{
-width:80px;
-margin-bottom:20px;
-}
-
-h1{
-color:var(--rojoOscuro);
-margin-bottom:10px;
-}
-
-p{
-color:#666;
-margin-bottom:30px;
-}
-
-.btn{
-display:block;
-padding:15px;
-border-radius:12px;
-text-decoration:none;
-font-weight:600;
-transition:.3s;
-margin-top:15px;
-}
-
-.descargar{
-background:var(--rojo);
-color:white;
-}
-
-.descargar:hover{
-background:var(--rojoOscuro);
-transform:scale(1.05);
-}
-
-.volver{
-background:#6c757d;
-color:white;
-}
-
-.volver:hover{
-background:#5c636a;
-transform:scale(1.05);
-}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Horarios y Programación - Congreso Juvenil 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .schedule-table{max-width:1000px;margin:30px auto;border-collapse:collapse;width:95%;background:white;border-radius:12px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.08)}
+    .schedule-table thead{background:linear-gradient(90deg,var(--rojo),var(--rojo-oscuro));color:white}
+    .schedule-table th,.schedule-table td{padding:14px 18px;border-bottom:1px solid #f1f3f5;text-align:left}
+    .session-title{font-weight:700;color:var(--rojo)}
+    .small{font-size:0.9rem;color:#6c757d}
+    .download{display:inline-block;margin-top:10px}
+    @media(max-width:800px){.schedule-table thead{display:none}.schedule-table tr{display:block;margin-bottom:12px}.schedule-table td{display:flex;justify-content:space-between;padding:12px 16px}}
+    .notice{max-width:1000px;margin:18px auto;padding:14px 18px;border-radius:10px;background:linear-gradient(90deg,var(--rojo),var(--rojo-oscuro));color:white;box-shadow:0 8px 30px rgba(0,0,0,.08);display:flex;justify-content:space-between;align-items:center}
+    .notice .text{font-weight:600}
+    .notice .when{background:rgba(255,255,255,.12);padding:6px 10px;border-radius:8px;font-weight:700}
+  </style>
 </head>
 <body>
 
-<div class="container">
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo-container">
+        <img src="img/logo.png" alt="logo">
+        <div class="brand-text">
+          <strong>Congreso Juvenil 2026</strong>
+          <span>Circuito 2 · Zona 6</span>
+        </div>
+      </div>
+      <div class="nav-links">
+        <a href="home.html">Inicio</a>
+<a href="Basedatos.html">Ver Inscritos</a>
+<a href="contacto.html">Contacto</a>
+<a href="index.html">Recargar..</a>
+<a href="Evento.html">Eventos</a>
+      </div>
+      <div class="menu-toggle">&#9776;</div>
+    </div>
+  </nav>
 
-<img src="img/logo.png" class="logo">
+  <header class="hero" style="min-height:38vh;align-items:center;">
+    <div class="hero-content">
+      <img src="img/logo.png" alt="logo" style="width:110px;margin-bottom:12px;">
+      <h1>Mesa de Soporte y Contacto del Evento</h1>
+        <p class="lema">Aquí encontrarás los contactos oficiales para resolver tus dudas sobre el congreso.</p>
+    </div>
+  </header>
 
-<h1>Permiso Oficial del Evento</h1>
-<p>Descargue el documento oficial, imprímalo y preséntelo firmado el día del Congreso.</p>
+  <main>
+    <section>
+    <h2 style="color:var(--rojo);">Contactos</h2>
+    <p class="color:var(--rojo);">Para más información sobre el congreso, puedes contactarnos a través de los siguientes medios:</p>
+   <table class="schedule-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Telefono</th>
+            <th>WhtasApp</th>
+            <th>Area</th>
+            
+          </tr>
+        </thead>
+       <tbody>
 
-<a href="docs/permiso_evento.docx" download class="btn descargar">
-Descargar Permiso en Word
-</a>
+  <tr>
+    <td>Katherine Bermudez</td>
+    <td>+57 319 4480759</td>
+    <td>+57 319 4480759</td>
+    <td>Coordinadora General - UJECA</td>
 
-<a href="contacto.html" class="btn volver">
-Volver
-</a>
+  </tr>
 
-</div>
+  <tr>
+    <td>Melania Angulo</td>
+    <td>+57 321 6818450</td>
+    <td>+57 321 6818450</td>
+    <td>Area Tesoreria</td>
+  </tr>
 
+  <tr>
+    <td>Edinson Banquet</td>
+    <td>+57 311 4285949</td>
+    <td>+57 311 4285949</td>
+    <td>Fiscalia Circuital</td>
+  </tr>
+
+  <tr>
+    <td>Camila Urango</td>
+    <td>+57 312 6344615</td>
+    <td>+57 312 6344615</td>
+    <td>Secretaria</td>
+  </tr>
+
+  <tr>
+    <td>Armando Alvarez</td>
+    <td>+57 312 7947484</td>
+    <td>+57 320 6135719</td>
+    <td>Area de eventos- Soporte Tecnico Web</td>
+  </tr>
+  
+</tbody>
+</table>    
+  
+
+    </section>
+
+   
+  </main>
+
+  <footer>© 2026 Unión Juvenil Evangélica del Caribe</footer>
+
+  <script>
+    // Menu móvil (mismo comportamiento que en home.html)
+    document.addEventListener('DOMContentLoaded', function(){
+      const toggle=document.querySelector('.menu-toggle');
+      const navLinks=document.querySelector('.nav-links');
+      if(toggle && navLinks) toggle.addEventListener('click',()=>navLinks.classList.toggle('active'));
+    });
+  </script>
 </body>
 </html>
