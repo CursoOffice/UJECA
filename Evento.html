@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Horarios y Programación - Congreso Juvenil 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .schedule-table{max-width:1000px;margin:30px auto;border-collapse:collapse;width:95%;background:white;border-radius:12px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.08)}
+    .schedule-table thead{background:linear-gradient(90deg,var(--rojo),var(--rojo-oscuro));color:white}
+    .schedule-table th,.schedule-table td{padding:14px 18px;border-bottom:1px solid #f1f3f5;text-align:left}
+    .session-title{font-weight:700;color:var(--rojo)}
+    .small{font-size:0.9rem;color:#6c757d}
+    .download{display:inline-block;margin-top:10px}
+    @media(max-width:800px){.schedule-table thead{display:none}.schedule-table tr{display:block;margin-bottom:12px}.schedule-table td{display:flex;justify-content:space-between;padding:12px 16px}}
+    .notice{max-width:1000px;margin:18px auto;padding:14px 18px;border-radius:10px;background:linear-gradient(90deg,var(--rojo),var(--rojo-oscuro));color:white;box-shadow:0 8px 30px rgba(0,0,0,.08);display:flex;justify-content:space-between;align-items:center}
+    .notice .text{font-weight:600}
+    .notice .when{background:rgba(255,255,255,.12);padding:6px 10px;border-radius:8px;font-weight:700}
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo-container">
+        <img src="img/logo.png" alt="logo">
+        <div class="brand-text">
+          <strong>Congreso Juvenil 2026</strong>
+          <span>Circuito 2 · Zona 6</span>
+        </div>
+      </div>
+      <div class="nav-links">
+        <a href="home.html">Inicio</a>
+<a href="Basedatos.html">Ver Inscritos</a>
+<a href="contacto.html">Contacto</a>
+<a href="index.html">Recargar..</a>
+<a href="Evento.html">Eventos</a>
+      </div>
+      <div class="menu-toggle">&#9776;</div>
+    </div>
+  </nav>
+
+  <header class="hero" style="min-height:38vh;align-items:center;">
+    <div class="hero-content">
+      <img src="img/logo.png" alt="logo" style="width:110px;margin-bottom:12px;">
+      <h1>Horarios y Programación</h1>
+      <p class="lema">Aquí publicaremos los horarios, salas y detalles del evento.</p>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <h2 style="color:var(--rojo);">Programa Oficial</h2>
+      <p class="small">Última actualización: 19 de Febrero 2026</p>
+
+      <div class="notice" role="status" aria-live="polite">
+        <div class="text">El programa oficial aún no está disponible. Mantente atento a próximas actualizaciones.</div>
+        <div class="when">Próximamente</div>
+      </div>
+
+      <p class="small" style="text-align:center;margin-top:8px;">Fecha estimada de publicación: <strong>Por confirmar</strong></p>
+
+      <table class="schedule-table">
+        <thead>
+          <tr>
+            <th>Hora</th>
+            <th>Actividad</th>
+            <th>Responsable / Orador</th>
+            <th>Lugar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="4" style="text-align:center;padding:40px 20px;font-weight:600;color:#495057;background:transparent;">
+              La programación oficial aún no ha sido publicada. Por favor, vuelve más tarde o suscríbete para recibir actualizaciones.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="text-align:center;margin-top:18px;">
+        <a href="docs/PERMISO_ADOLESCENTES_UJECA_2025.docx" 
+   class="btn btn-primary" 
+   download>
+   📄 Descargar Permiso Oficial
+</a>
+      </div>
+    </section>
+
+    <section style="background:#f8f9fa;">
+      <h2 style="color:var(--rojo);">Información adicional</h2>
+      <ul style="max-width:900px;margin:18px auto;text-align:left;list-style:none;padding-left:0;">
+        <li><strong>Ingreso:</strong> Se recomienda llegar 30 minutos antes para acreditación.</li>
+        <li><strong>Vestimenta:</strong> Casual / acorde al evento.</li>
+        <li><strong>Alimentación:</strong> Habrá servicio de cafetería y áreas de descanso.</li>
+        <li><strong>Contacto:</strong> Para dudas sobre el programa, escribe a el area encargada de eventos a través de nuestro .</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>© 2026 Unión Juvenil Evangélica del Caribe</footer>
+
+  <script>
+    // Menu móvil (mismo comportamiento que en home.html)
+    document.addEventListener('DOMContentLoaded', function(){
+      const toggle=document.querySelector('.menu-toggle');
+      const navLinks=document.querySelector('.nav-links');
+      if(toggle && navLinks) toggle.addEventListener('click',()=>navLinks.classList.toggle('active'));
+    });
+  </script>
+</body>
+</html>

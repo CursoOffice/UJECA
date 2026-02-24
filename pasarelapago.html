@@ -236,44 +236,71 @@ body::before,body::after{display:none}
 </div>
 
 <script>
+
 const API="https://script.google.com/macros/s/AKfycbwKgXBGwoIroq2DnTTXA5i_SyN_9urz-w8RLVVtLZLBmzwnKTWOD07tyuIMivTzQAPL/exec";
 
 let BD=[];
+let cargada=false;
 let precio=550000;
 let descuento=0;
 
+/* ========= FORMATO DINERO ========= */
 function money(n){
-return "$"+n.toLocaleString("es-CO");
+return "$"+Number(n).toLocaleString("es-CO");
 }
 
+/* ========= CARGAR BASE ========= */
 async function cargar(){
+try{
 let r=await fetch(API);
 let json=await r.json();
-BD=Array.isArray(json)?json:Object.values(json);
+
+BD = Array.isArray(json)?json:Object.values(json);
+
+cargada=true;
+console.log("Base cargada:",BD.length,"registros");
+
+}catch(e){
+alert("No se pudo conectar con la base de datos");
+}
 }
 cargar();
 
+/* ========= BUSCAR ========= */
 function buscar(){
-let doc=document.getElementById("cedula").value.trim();
-if(!BD.length){alert("Base cargando...");return;}
 
-let persona=BD.find(row =>
-Object.values(row).some(v=>String(v).trim()===doc)
+if(!cargada){
+alert("La base aún está cargando, intenta nuevamente en 2 segundos");
+return;
+}
+
+let doc=document.getElementById("cedula").value.trim();
+if(!doc) return alert("Ingrese documento");
+
+let persona = BD.find(row => 
+String(row.Documento || row.documento || row.cedula || "")
+.trim() === doc
 );
 
-if(!persona){alert("Participante no encontrado");return;}
+if(!persona){
+alert("Participante no encontrado");
+return;
+}
 
-let valores=Object.values(persona);
-let nombre=valores.find(v=>String(v).length>5)||"";
-let codigo=valores.find(v=>String(v).includes("UJECA"))||"";
-let ciudad=valores.find(v=>String(v).length>3 && String(v).length<25)||"";
+/* DATOS EXACTOS POR COLUMNA */
+let nombre = persona.Nombre || persona.nombre || "No registrado";
+let iglesia = persona.Iglesia || persona.iglesia || "No especificada";
+let ciudad = persona.Municipio || persona.Ciudad || persona.ciudad || "";
+let codigo = persona.Codigo || persona.codigo || persona.ID || "";
 
-let posicion=BD.indexOf(persona)+1;
-descuento=posicion<=40?50000:0;
+/* DESCUENTO SOLO SI EXISTE COLUMNA PUESTO */
+let posicion = Number(persona.Puesto || persona.puesto || 9999);
+descuento = posicion<=40?50000:0;
 
+/* PINTAR */
 document.getElementById("nombre").innerText=nombre;
 document.getElementById("doc").innerText=doc;
-document.getElementById("iglesia").innerText=persona.iglesia||"No especificada";
+document.getElementById("iglesia").innerText=iglesia;
 document.getElementById("ciudad").innerText=ciudad;
 document.getElementById("codigo").innerText=codigo;
 document.getElementById("fecha").innerText=new Date().toLocaleDateString("es-CO");
@@ -282,10 +309,13 @@ document.getElementById("descuento").innerText=
 descuento>0?"Descuento aplicado: -"+money(descuento):"Sin descuento";
 
 document.getElementById("factura").style.display="block";
+
 calcular();
 }
 
+/* ========= CALCULAR SALDO ========= */
 function calcular(){
+
 let abono=Number(document.getElementById("abono").value)||0;
 let total=precio-descuento;
 let saldo=total-abono;
@@ -294,6 +324,7 @@ if(saldo<0) saldo=0;
 document.getElementById("saldo").innerText="Saldo pendiente: "+money(saldo);
 
 let estado=document.getElementById("estado");
+
 if(saldo===0){
 estado.innerText="✔ INSCRIPCIÓN PAGADA";
 estado.className="estado pagado";
@@ -301,8 +332,11 @@ estado.className="estado pagado";
 estado.innerText="✖ PAGO PENDIENTE";
 estado.className="estado pendiente";
 }
+
 }
+
 </script>
+
 
 </body>
 </html>

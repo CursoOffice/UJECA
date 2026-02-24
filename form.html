@@ -17,6 +17,7 @@ display:flex;
 align-items:center;
 justify-content:center;
 padding-top:90px;
+font-style: normal;
 }
 
 .container{width:100%;max-width:900px;padding:20px;}
@@ -104,7 +105,9 @@ box-shadow:0 20px 50px rgba(0,0,0,0.3);animation:zoomIn .3s ease;border-top:6px 
 <nav class="menu">
 <a href="home.html">Inicio</a>
 <a href="Basedatos.html">Ver Inscritos</a>
-<a href="index.html">Contacto</a>
+<a href="contacto.html">Contacto</a>
+<a href="index.html">Recargar..</a>
+<a href="Evento.html">Eventos</a>
 </nav>
 </div>
 </header>
@@ -116,29 +119,29 @@ box-shadow:0 20px 50px rgba(0,0,0,0.3);animation:zoomIn .3s ease;border-top:6px 
 <form id="formulario">
 
 <h3>Datos personales</h3>
-<input name="nombre" placeholder="Nombre completo" required>
-<input name="documento" placeholder="Documento de identidad" required>
-<input name="edad" type="number" placeholder="Edad" required>
+<input name="Nombre" placeholder="Nombre completo" required>
+<input name="Documento" placeholder="Documento de identidad" required>
+<input name="Edad" type="number" placeholder="Edad" required>
 
-<select name="sexo" required>
+<select name="Sexo" required>
 <option value="">Sexo</option>
 <option>Masculino</option>
 <option>Femenino</option>
 </select>
 
-<input name="telefono" placeholder="Teléfono" required>
-<input name="correo" type="email" placeholder="Correo electrónico" required>
+<input name="Telefono" placeholder="Teléfono" required>
+<input name="Correo" type="email" placeholder="Correo electrónico" required>
 
 <h3>Ubicación</h3>
-<input name="pais" value="Colombia">
-<input name="departamento" placeholder="Departamento">
-<input name="municipio" placeholder="Municipio">
+<input name="Pais" value="Colombia">
+<input name="Departamento" placeholder="Departamento">
+<input name="Municipio" placeholder="Municipio">
 
 <h3>Iglesia</h3>
-<input name="iglesia" placeholder="Nombre de la iglesia">
-<input name="pastor" placeholder="Nombre del pastor">
+<input name="Iglesia" placeholder="Nombre de la iglesia">
+<input name="Pastor" placeholder="Nombre del pastor">
 
-<select name="asistencia">
+<select name="Asistencia">
 <option value="Sí">Asistirá al evento</option>
 <option value="No">No asistirá</option>
 </select>
@@ -151,20 +154,20 @@ box-shadow:0 20px 50px rgba(0,0,0,0.3);animation:zoomIn .3s ease;border-top:6px 
 </select>
 
 <h3>Emergencia</h3>
-<input name="emergencia_nombre" placeholder="Nombre contacto de emergencia">
-<input name="emergencia_tel" placeholder="Teléfono de emergencia">
+<input name="Emergencia_nombre" placeholder="Nombre contacto de emergencia">
+<input name="Emergencia_telefono" placeholder="Teléfono de emergencia">
 
 <h3>Salud</h3>
-<input name="alergias" placeholder="Alergias o condiciones médicas">
+<input name="Alergias" placeholder="Alergias o condiciones médicas">
 
 <h3>Observaciones</h3>
-<textarea name="observaciones" rows="3"></textarea>
+<textarea name="Observaciones" rows="3"></textarea>
 
 <button type="button" onclick="prepararEnvio()">Enviar inscripción</button>
 <button type="button" onclick="document.getElementById('formulario').reset()">Limpiar formulario</button>
 
 </form>
-<p id="estado"></p>
+<p id="Estado"></p>
 </div>
 
 <!-- MODAL BIENVENIDA -->
@@ -173,12 +176,13 @@ box-shadow:0 20px 50px rgba(0,0,0,0.3);animation:zoomIn .3s ease;border-top:6px 
 <img src="img/logo.png" class="icono">
 
 <h1>¡Bienvenido!</h1>
-<p>Estimado campista, por favor completa el formulario para confirmar tu inscripción. recuerda que el evento se llevará a cabo el 5de Diciembre  de 2026 en la ciudad de Sinclejo.</p>
+<p>Estimado campista, por favor completa el formulario para confirmar tu inscripción. recuerda que el evento se llevará a cabo del 5 al 8 de noviembre de 2026 en la ciudad de Medellín.</p>
 <p>Si tienes alguna pregunta, no dudes en contactarnos a través de nuestras redes sociales o correo electrónico.</p>
-<p>soporte.circutio@gmail.com</p>
+<p>infocircuito@gmail.com</p>
 <button onclick="cerrarBienvenida()">Continuar</button>
 </div>
 </div>
+
 
 <!-- MODAL CONFIRMACION -->
 <div id="modalConfirmacion" class="modal-confirmacion">
@@ -304,5 +308,3 @@ function cerrarModal(){
 
 </body>
 </html>
-
-

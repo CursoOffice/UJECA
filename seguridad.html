@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Editor de Evidencias</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--rojo:#d62828;--oscuro:#0f172a;--gris:#e5e7eb}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#0f172a,#111827);color:white;text-align:center}
+header{padding:18px 25px;background:rgba(255,255,255,.05);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.1)}
+header h1{margin:0;font-size:1.3rem;letter-spacing:.5px}
+.panel{max-width:1000px;margin:30px auto;padding:25px;background:rgba(255,255,255,.06);border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:25px}
+.controls div{background:rgba(255,255,255,.04);padding:18px;border-radius:14px}
+label{display:block;margin-bottom:8px;font-weight:600;color:#e5e7eb}
+input,select{width:100%;padding:12px;border-radius:10px;border:none;background:#111827;color:white}
+input:focus,select:focus{outline:2px solid var(--rojo)}
+button{grid-column:1/-1;padding:14px;border:none;border-radius:14px;background:linear-gradient(135deg,#d62828,#9d0208);color:white;font-weight:700;cursor:pointer;transition:.25s}
+button:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(0,0,0,.5)}
+canvas{margin-top:25px;border-radius:16px;max-width:100%;background:black}
+.actions{margin-top:15px}
+.download{background:#16a34a}
+</style>
+</head>
+<body>
+<header>
+<h1>Generador de Evidencia Fotográfica</h1>
+</header>
+
+<div class="panel">
+<div class="controls">
+<div>
+<label>Subir Imagen</label>
+<input type="file" id="upload" accept="image/*">
+</div>
+<div>
+<label>Fecha del Operativo</label>
+<input type="date" id="fecha" onclick="this.showPicker && this.showPicker()">
+</div>
+<div>
+<label>Hora (Formato militar)</label>
+<input type="time" id="hora" step="1" min="00:00:00" max="23:59:59" required onclick="this.showPicker && this.showPicker()">
+</div>
+<button onclick="addText()">Generar Texto</button>
+</div>
+<canvas id="canvas"></canvas>
+<div class="actions">
+<button class="download" onclick="downloadImage()">Descargar Imagen</button>
+<button onclick="corregirImagen()">Corregir</button>
+<button onclick="limpiarTodo()">Limpiar</button>
+</div>
+</div>
+
+<script>
+const canvas=document.getElementById('canvas');
+const ctx=canvas.getContext('2d');
+let image=new Image();
+let originalData=null;
+
+document.getElementById('upload').addEventListener('change',e=>{
+ const file=e.target.files[0];
+ if(!file)return;
+ const reader=new FileReader();
+ reader.onload=ev=>{image.onload=()=>{canvas.width=image.width;canvas.height=image.height;ctx.drawImage(image,0,0);originalData=ctx.getImageData(0,0,canvas.width,canvas.height)};image.src=ev.target.result};
+ reader.readAsDataURL(file);
+});
+
+function formatDate(dateString){
+ if(!dateString)return'';
+ const date=new Date(dateString);
+ return date.toLocaleString('es-CO',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+}
+
+function datosAutomaticos(fecha){
+ if(!fecha)return {mun:'',dep:'',punto:''};
+ return {mun:'Segovia',dep:'Antioquia',punto:'Peaje Fragua'};
+}
+
+function addText(){
+ if(!image.src){alert('Sube una imagen primero');return}
+ ctx.drawImage(image,0,0);
+ const fechaSeleccionada=document.getElementById('fecha').value;
+ const horaSeleccionada=document.getElementById('hora').value;
+ if(horaSeleccionada && (horaSeleccionada<"00:59" || horaSeleccionada>"23:59")){alert("La hora debe estar entre 00:59 y 23:59 (formato militar)");return}
+ const fecha=(fechaSeleccionada && horaSeleccionada)? `${fechaSeleccionada}T${horaSeleccionada}` : '';
+ const formatted=formatDate(fecha);
+ const info=datosAutomaticos(fecha);
+ const texto=`${formatted}\n${info.mun}\n${info.dep}\n${info.punto}`;
+ ctx.font='bold 42px Poppins';
+ ctx.fillStyle='white';
+ ctx.strokeStyle='black';
+ ctx.lineWidth=5;
+ ctx.textAlign='right';
+ const padding=50;
+ const lines=texto.split('\n');
+ let y=canvas.height-padding-(lines.length*55);
+ lines.forEach(line=>{ctx.strokeText(line,canvas.width-padding,y);ctx.fillText(line,canvas.width-padding,y);y+=55});
+}
+
+function downloadImage(){
+ const link=document.createElement('a');
+ link.download='evidencia.png';
+ link.href=canvas.toDataURL('image/png');
+ link.click();
+}
+
+function corregirImagen(){
+ if(originalData) ctx.putImageData(originalData,0,0);
+}
+
+function limpiarTodo(){
+ ctx.clearRect(0,0,canvas.width,canvas.height);
+ document.getElementById('upload').value='';
+ document.getElementById('fecha').value='';
+ document.getElementById('hora').value='';
+ image.src='';
+ originalData=null;
+}
+</script>
+</body>
+</html>

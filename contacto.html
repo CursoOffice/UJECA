@@ -3,11 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contacto | Congreso Circuito 2 UJECA Zona 6</title>
+<title>Descargar Permiso | Congreso Juvenil 2026</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<link rel="apple-touch-icon" href="img/logo.png">
+
 <style>
 :root{
  --rojo:#d62828;
@@ -16,258 +15,95 @@
  --texto:#333;
 }
 
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
-body{background:var(--gris);color:var(--texto)}
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+font-family:'Poppins',sans-serif;
+}
 
-/* CONTENEDOR */
+body{
+background:linear-gradient(135deg,#f1f3f5,#ffffff);
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
 .container{
-max-width:1100px;
-margin:auto;
-padding:20px;
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:25px;
-}
-
-/* TARJETA */
-.card{
 background:white;
-border-radius:18px;
-padding:25px;
+padding:50px 40px;
+border-radius:20px;
+box-shadow:0 20px 45px rgba(0,0,0,.1);
 text-align:center;
-box-shadow:0 10px 25px rgba(0,0,0,.08);
-transition:.3s;
+max-width:500px;
+width:100%;
 }
 
-.card:hover{
-transform:translateY(-6px);
-box-shadow:0 18px 40px rgba(0,0,0,.15);
+.logo{
+width:80px;
+margin-bottom:20px;
 }
 
-.avatar{
-width:90px;
-height:90px;
-border-radius:50%;
-object-fit:cover;
-margin-bottom:12px;
-border:4px solid var(--rojo);
+h1{
+color:var(--rojoOscuro);
+margin-bottom:10px;
 }
 
-.nombre{font-weight:700;margin-bottom:5px}
-.cargo{color:#666;margin-bottom:15px;font-size:.95rem}
+p{
+color:#666;
+margin-bottom:30px;
+}
 
-/* BOTONES */
 .btn{
 display:block;
-margin:6px 0;
-padding:11px;
-border-radius:10px;
+padding:15px;
+border-radius:12px;
 text-decoration:none;
 font-weight:600;
-transition:.25s;
+transition:.3s;
+margin-top:15px;
 }
 
-.whatsapp{
-background:#25D366;
-color:white;
-}
-
-.llamar{
+.descargar{
 background:var(--rojo);
 color:white;
 }
 
-.btn:hover{opacity:.85}
-
-/* MAPA */
-.mapa{
-max-width:1100px;
-margin:40px auto;
-padding:20px;
-}
-
-iframe{
-width:100%;
-height:350px;
-border-radius:18px;
-border:none;
-box-shadow:0 10px 25px rgba(0,0,0,.1);
-}
-
-/* FOOTER */
-footer{
-text-align:center;
-padding:25px;
-color:#666;
-font-size:14px;
-}
-/* SECCION PERMISOS */
-.permisos{
-max-width:1100px;
-margin:50px auto;
-padding:20px;
-text-align:center;
-}
-
-.permisos h2{
-color:var(--rojo);
-margin-bottom:10px;
-}
-
-.permisos p{
-margin-bottom:25px;
-color:#555;
-}
-
-.permisos-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:25px;
-}
-.permiso-card{
-background:white;
-border-radius:18px;
-padding:30px 25px;
-box-shadow:0 10px 25px rgba(0,0,0,.08);
-transition:.3s;
-
-/* centrado */
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-min-height:220px;
-}
-
-.permiso-card h3{
-color:var(--rojoOscuro);
-margin-bottom:12px;
-}
-
-.permiso-card p{
-margin-bottom:15px;
-max-width:240px;
-}
-
-.descargar{
-background:#0d6efd;
-color:white;
-display:inline-block;
-margin-top:12px;
-}
-
 .descargar:hover{
-background:#0b5ed7;
-}
-.permisos{
-max-width:1100px;
-margin:70px auto;
-padding:20px;
-text-align:center;
-display:flex;
-flex-direction:column;
-align-items:center;
+background:var(--rojoOscuro);
+transform:scale(1.05);
 }
 
-.permisos-grid{
-width:100%;
-max-width:900px;
-margin:auto;
+.volver{
+background:#6c757d;
+color:white;
 }
 
-
+.volver:hover{
+background:#5c636a;
+transform:scale(1.05);
+}
 </style>
 </head>
-
 <body>
-
-<nav class="navbar">
-    <div class="nav-container">
-
-        <div class="logo-container">
-            <img src="img/logo.png" alt="Logo">
-            <div class="brand-text">
-                <strong>Congreso Juvenil 2026</strong>
-                <span>Circuito 2 · Zona 6</span>
-            </div>
-        </div>
-
-        <div class="nav-links">
-            <a href="home.html"class="btn-outline">Inicio</a>
-            <a href="Basedatos.html" class="btn-outline">Ver Inscritos</a>
-            <a href="contacto.html" class="btn-outline">Contacto</a>
-        </div>
-
-        <div class="menu-toggle">&#9776;</div>
-
-    </div>
-</nav>
-
-<section class="titulo">
-<h2>Contáctanos</h2>
-<p>Equipo organizador del Congreso</p>
-</section>
 
 <div class="container">
 
-<!-- PERSONA 1 -->
-<div class="card">
-<img src="img/1.png" class="avatar">
-<div class="nombre">Coordinador General</div>
-<div class="cargo">Información del evento</div>
+<img src="img/logo.png" class="logo">
 
-<a class="btn whatsapp" href="https://wa.me/573194480759" target="_blank">WhatsApp</a>
-<a class="btn llamar" href="tel:+573000000000">Llamar</a>
-</div>
+<h1>Permiso Oficial del Evento</h1>
+<p>Descargue el documento oficial, imprímalo y preséntelo firmado el día del Congreso.</p>
 
-<!-- PERSONA 2 -->
-<div class="card">
-<img src="img/2.png" class="avatar">
-<div class="nombre">Encargado Inscripciones</div>
-<div class="cargo">Soporte de registro</div>
+<a href="docs/permiso_evento.docx" download class="btn descargar">
+Descargar Permiso en Word
+</a>
 
-<a class="btn whatsapp" href="https://wa.me/573000000001" target="_blank">WhatsApp</a>
-<a class="btn llamar" href="tel:+573000000001">Llamar</a>
-</div>
-
-<!-- PERSONA 3 -->
-<div class="card">
-<img src="img/3.png" class="avatar">
-<div class="nombre">Logística</div>
-<div class="cargo">Hospedaje y transporte</div>
-
-<a class="btn whatsapp" href="https://wa.me/573000000002" target="_blank">WhatsApp</a>
-<a class="btn llamar" href="tel:+573000000002">Llamar</a>
-</div>
-<section class="permisos">
-<h2>Descarga de Permisos</h2>
-<p>Si el participante es menor de edad, debe presentar los siguientes documentos firmados el día del evento.</p>
-
-<div class="permisos-grid">
-
-<div class="permiso-card">
-<h3>Permiso de Menor de Edad</h3>
-<p>Autorización firmada por padre o acudiente.</p>
-<a href="docs/permiso_menor.docx" download class="btn descargar">Descargar</a>
-</div>
-
-<div class="permiso-card">
-<h3>Responsabilidad Médica</h3>
-<p>Autorización para atención médica en caso de emergencia.</p>
-<a href="docs/permiso_responsabilidad.docx" download class="btn descargar">Descargar</a>
-</div>
+<a href="contacto.html" class="btn volver">
+Volver
+</a>
 
 </div>
-</section>
-
-
-</div>
-
-
-<footer>
-Congreso UJECA Zona 6 © 2026
-</footer>
 
 </body>
 </html>
