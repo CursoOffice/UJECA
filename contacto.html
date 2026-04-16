@@ -3,122 +3,76 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Horarios y Programación - Congreso Juvenil 2026</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <style>
-    .schedule-table{max-width:1000px;margin:30px auto;border-collapse:collapse;width:95%;background:white;border-radius:12px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.08)}
-    .schedule-table thead{background:linear-gradient(90deg,var(--rojo),var(--rojo-oscuro));color:white}
-    .schedule-table th,.schedule-table td{padding:14px 18px;border-bottom:1px solid #f1f3f5;text-align:left}
-    .session-title{font-weight:700;color:var(--rojo)}
-    .small{font-size:0.9rem;color:#6c757d}
-    .download{display:inline-block;margin-top:10px}
-    @media(max-width:800px){.schedule-table thead{display:none}.schedule-table tr{display:block;margin-bottom:12px}.schedule-table td{display:flex;justify-content:space-between;padding:12px 16px}}
-    .notice{max-width:1000px;margin:18px auto;padding:14px 18px;border-radius:10px;background:linear-gradient(90deg,var(--rojo),var(--rojo-oscuro));color:white;box-shadow:0 8px 30px rgba(0,0,0,.08);display:flex;justify-content:space-between;align-items:center}
-    .notice .text{font-weight:600}
-    .notice .when{background:rgba(255,255,255,.12);padding:6px 10px;border-radius:8px;font-weight:700}
-  </style>
+  <title>Contacto | Congreso Juvenil 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="ui-theme.css">
 </head>
-<body>
-
-  <nav class="navbar">
-    <div class="nav-container">
-      <div class="logo-container">
-        <img src="img/logo.png" alt="logo">
-        <div class="brand-text">
-          <strong>Congreso Juvenil 2026</strong>
-          <span>Circuito 2 · Zona 6</span>
-        </div>
+<body class="ui-body">
+<div class="ui-shell">
+  <header class="ui-topbar">
+    <div class="ui-brand">
+      <div class="ui-brand-mark"><img src="img/logo.png" alt="Logo"></div>
+      <div class="ui-brand-copy">
+        <h1>Mesa de contacto</h1>
+        <p>Soporte oficial del congreso</p>
       </div>
-      <div class="nav-links">
-        <a href="home.html">Inicio</a>
-<a href="Basedatos.html">Ver Inscritos</a>
-<a href="contacto.html">Contacto</a>
-<a href="index.html">Recargar..</a>
-<a href="Evento.html">Eventos</a>
-      </div>
-      <div class="menu-toggle">&#9776;</div>
     </div>
-  </nav>
-
-  <header class="hero" style="min-height:38vh;align-items:center;">
-    <div class="hero-content">
-      <img src="img/logo.png" alt="logo" style="width:110px;margin-bottom:12px;">
-      <h1>Mesa de Soporte y Contacto del Evento</h1>
-        <p class="lema">Aquí encontrarás los contactos oficiales para resolver tus dudas sobre el congreso.</p>
-    </div>
+    <nav class="ui-nav">
+      <a href="home.html">Inicio</a>
+      <a href="form.html">Inscripción</a>
+      <a href="Basedatos.html">Inscritos</a>
+      <a href="pasarelapago.html">Pagos</a>
+      <a href="Evento.html">Eventos</a>
+    </nav>
   </header>
 
-  <main>
-    <section>
-    <h2 style="color:var(--rojo);">Contactos</h2>
-    <p class="color:var(--rojo);">Para más información sobre el congreso, puedes contactarnos a través de los siguientes medios:</p>
-   <table class="schedule-table">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Telefono</th>
-            <th>WhtasApp</th>
-            <th>Area</th>
-            
-          </tr>
-        </thead>
-       <tbody>
+  <section class="ui-hero">
+    <div class="ui-hero-grid">
+      <div class="ui-hero-copy">
+        <span class="ui-eyebrow">Soporte y orientación</span>
+        <h2>Contactos oficiales para resolver dudas del evento.</h2>
+        <p>Aquí tienes los responsables principales por área para atención general, tesorería, secretaría, fiscalía y soporte técnico web.</p>
+      </div>
+      <div class="ui-hero-panel">
+        <div class="ui-grid cols-2">
+          <div class="ui-stat"><span>Canal principal</span><strong>WhatsApp y llamada</strong></div>
+          <div class="ui-stat"><span>Correo</span><strong>infocircuito@gmail.com</strong></div>
+          <div class="ui-stat"><span>Atención</span><strong>Equipo organizador</strong></div>
+          <div class="ui-stat"><span>Uso</span><strong>Dudas, pagos y soporte</strong></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <tr>
-    <td>Katherine Bermudez</td>
-    <td>+57 319 4480759</td>
-    <td>+57 319 4480759</td>
-    <td>Coordinadora General - UJECA</td>
+  <section class="ui-section">
+    <article class="ui-card">
+      <h3>Directorio de contacto</h3>
+      <p style="margin-bottom:18px;">Consulta el responsable más adecuado según el área que necesites.</p>
+      <div class="ui-table-wrap">
+        <table class="ui-table">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Teléfono</th>
+              <th>WhatsApp</th>
+              <th>Área</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Katherine Bermudez</td><td>+57 319 4480759</td><td>+57 319 4480759</td><td>Coordinadora General - UJECA</td></tr>
+            <tr><td>Melania Angulo</td><td>+57 321 6818450</td><td>+57 321 6818450</td><td>Área Tesorería</td></tr>
+            <tr><td>Edinson Banquet</td><td>+57 311 4285949</td><td>+57 311 4285949</td><td>Fiscalía Circuital</td></tr>
+            <tr><td>Camila Urango</td><td>+57 312 6344615</td><td>+57 312 6344615</td><td>Secretaría</td></tr>
+            <tr><td>Armando Alvarez</td><td>+57 312 7947484</td><td>+57 320 6135719</td><td>Área de eventos - Soporte técnico web</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+  </section>
 
-  </tr>
-
-  <tr>
-    <td>Melania Angulo</td>
-    <td>+57 321 6818450</td>
-    <td>+57 321 6818450</td>
-    <td>Area Tesoreria</td>
-  </tr>
-
-  <tr>
-    <td>Edinson Banquet</td>
-    <td>+57 311 4285949</td>
-    <td>+57 311 4285949</td>
-    <td>Fiscalia Circuital</td>
-  </tr>
-
-  <tr>
-    <td>Camila Urango</td>
-    <td>+57 312 6344615</td>
-    <td>+57 312 6344615</td>
-    <td>Secretaria</td>
-  </tr>
-
-  <tr>
-    <td>Armando Alvarez</td>
-    <td>+57 312 7947484</td>
-    <td>+57 320 6135719</td>
-    <td>Area de eventos- Soporte Tecnico Web</td>
-  </tr>
-  
-</tbody>
-</table>    
-  
-
-    </section>
-
-   
-  </main>
-
-  <footer>© 2026 Unión Juvenil Evangélica del Caribe</footer>
-
-  <script>
-    // Menu móvil (mismo comportamiento que en home.html)
-    document.addEventListener('DOMContentLoaded', function(){
-      const toggle=document.querySelector('.menu-toggle');
-      const navLinks=document.querySelector('.nav-links');
-      if(toggle && navLinks) toggle.addEventListener('click',()=>navLinks.classList.toggle('active'));
-    });
-  </script>
+  <footer class="ui-footer">© 2026 Unión Juvenil Evangélica del Caribe</footer>
+</div>
 </body>
 </html>

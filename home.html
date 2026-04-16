@@ -9,87 +9,216 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-body{background:#fefefe;color:#111;line-height:1.6;overflow-x:hidden;}
+body{
+background:#fefefe;
+color:#111;
+line-height:1.6;
+overflow-x:hidden;
+}
 a{text-decoration:none;color:inherit;}
 section{padding:60px 20px;}
-.fade-in{opacity:0;animation:fadeIn 1s forwards;}
-@keyframes fadeIn{from{opacity:0}to{opacity:1;}}
 
-/* NAVBAR */
 .navbar{
-width:100%;position:sticky;top:0;z-index:1000;
-backdrop-filter:blur(10px);
-background:rgba(157,2,8,.85);
-box-shadow:0 4px 12px rgba(0,0,0,.25);
+width:100%;
+position:sticky;
+top:0;
+z-index:1000;
+backdrop-filter:blur(12px);
+background:rgba(157,2,8,.88);
+box-shadow:0 6px 22px rgba(0,0,0,.22);
+border-bottom:1px solid rgba(255,255,255,.12);
 }
-.nav-container{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:10px 20px;}
-.logo-container{display:flex;align-items:center;gap:10px;}
-.logo-container img{width:50px;}
+.nav-container{
+max-width:1200px;
+margin:0 auto;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:12px 20px;
+gap:16px;
+}
+.logo-container{display:flex;align-items:center;gap:12px;}
+.logo-container img{
+width:54px;
+height:54px;
+object-fit:cover;
+border-radius:14px;
+box-shadow:0 8px 24px rgba(0,0,0,.22);
+}
 .brand-text strong{display:block;color:#fff;font-size:16px;}
 .brand-text span{font-size:12px;color:#ffe5e5;}
-.nav-links a{margin-left:15px;padding:6px 14px;border-radius:6px;transition:.3s;color:#fff;font-weight:500;}
-.nav-links a:hover{background:#fff;color:#9d0208;}
+.nav-links{
+display:flex;
+align-items:center;
+gap:10px;
+flex-wrap:wrap;
+}
+.nav-links a{
+padding:8px 14px;
+border-radius:999px;
+transition:.3s;
+color:#fff;
+font-weight:500;
+}
+.nav-links a:hover{
+background:#fff;
+color:#9d0208;
+}
 .menu-toggle{display:none;font-size:28px;color:#fff;cursor:pointer;}
 
-/* HERO */
 .hero{
-position:relative;text-align:center;color:white;overflow:hidden;height:80vh;
-display:flex;align-items:center;justify-content:center;
+position:relative;
+text-align:center;
+color:white;
+overflow:hidden;
+min-height:86vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:40px 20px;
 background:linear-gradient(135deg,#9d0208,#d62828,#ff6b6b);
-background-size:cover;background-position:center;
+background-size:cover;
+background-position:center;
 }
 .hero::before{
-content:"";position:absolute;top:0;left:0;width:100%;height:100%;
-background:linear-gradient(135deg,#9d0208,#d62828,#ff6b6b);
-opacity:0.4;animation:bgMove 15s ease infinite;
+content:"";
+position:absolute;
+top:0;left:0;width:100%;height:100%;
+background:
+linear-gradient(135deg,rgba(157,2,8,.78),rgba(214,40,40,.66),rgba(255,107,107,.48));
+backdrop-filter:blur(2px);
+animation:bgMove 15s ease infinite;
 }
 @keyframes bgMove{0%{background-position:0 0}50%{background-position:100% 100%}100%{background-position:0 0}}
-.hero-content{position:relative;z-index:1;}
-.hero-content img{width:120px;margin-bottom:20px;border-radius:50%;box-shadow:0 0 25px rgba(255,255,255,.7);animation:float 3s ease-in-out infinite;}
+.hero-content{
+position:relative;
+z-index:1;
+max-width:860px;
+padding:34px 28px;
+border-radius:28px;
+background:rgba(255,255,255,.08);
+border:1px solid rgba(255,255,255,.14);
+box-shadow:0 30px 60px rgba(0,0,0,.2);
+backdrop-filter:blur(10px);
+}
+.hero-content img{
+width:124px;
+margin-bottom:20px;
+border-radius:50%;
+box-shadow:0 0 30px rgba(255,255,255,.5);
+animation:float 3s ease-in-out infinite;
+background:white;
+padding:8px;
+}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-.hero h1{font-size:36px;margin-bottom:10px;}
+.hero h1{font-size:40px;margin-bottom:10px;line-height:1.05;}
 .hero p{font-size:18px;margin-bottom:20px;}
-.btn-primary{display:inline-block;background:#fff;color:#d62828;font-weight:600;padding:12px 28px;border-radius:30px;transition:.3s;}
-.btn-primary:hover{background:#ffdede;color:#9d0208;transform:scale(1.05);}
+.btn-primary{
+display:inline-block;
+background:#fff;
+color:#d62828;
+font-weight:700;
+padding:13px 30px;
+border-radius:999px;
+transition:.3s;
+box-shadow:0 16px 30px rgba(0,0,0,.18);
+}
+.btn-primary:hover{
+background:#ffdede;
+color:#9d0208;
+transform:scale(1.05);
+}
+.hero-actions{
+display:flex;
+justify-content:center;
+gap:14px;
+flex-wrap:wrap;
+margin-top:18px;
+}
+.btn-secondary{
+display:inline-block;
+padding:13px 24px;
+border:1px solid rgba(255,255,255,.45);
+border-radius:999px;
+color:#fff;
+font-weight:600;
+background:rgba(255,255,255,.08);
+transition:.3s;
+}
+.btn-secondary:hover{
+background:rgba(255,255,255,.18);
+transform:translateY(-2px);
+}
 
-/* COUNTDOWN */
-.countdown-section{text-align:center;background:#fff0f0;border-radius:15px;max-width:500px;margin:40px auto;box-shadow:0 6px 20px rgba(0,0,0,.1);padding:40px 20px;}
+.countdown-section{
+text-align:center;
+background:linear-gradient(180deg,#fff4f4,#fffafa);
+border-radius:22px;
+max-width:620px;
+margin:44px auto;
+box-shadow:0 12px 30px rgba(0,0,0,.08);
+padding:42px 24px;
+border:1px solid rgba(157,2,8,.08);
+}
 .countdown-section h2{font-size:28px;margin-bottom:20px;color:#9d0208;}
-.countdown{font-size:32px;font-weight:700;color:#d62828;background:white;display:inline-block;padding:15px 30px;border-radius:12px;box-shadow:0 6px 15px rgba(0,0,0,.15);}
+.countdown{
+font-size:32px;
+font-weight:700;
+color:#d62828;
+background:white;
+display:inline-block;
+padding:15px 30px;
+border-radius:16px;
+box-shadow:0 10px 20px rgba(0,0,0,.12);
+}
 
-/* VIDEO */
-.video{text-align:center;}
+.cards-section{
+max-width:1200px;
+margin:0 auto;
+padding:20px;
+}
+.cards-grid{
+display:grid;
+grid-template-columns:repeat(3,minmax(0,1fr));
+gap:20px;
+}
+.info-card{
+background:rgba(255,255,255,.86);
+border:1px solid rgba(157,2,8,.08);
+border-radius:24px;
+padding:24px;
+box-shadow:0 12px 28px rgba(0,0,0,.08);
+backdrop-filter:blur(8px);
+}
+.info-card h3{
+color:#9d0208;
+margin-bottom:10px;
+font-size:1.2rem;
+}
+.info-card p{
+color:#444;
+font-size:.98rem;
+}
+
+.video{
+text-align:center;
+max-width:1100px;
+margin:0 auto;
+}
 .video h2{font-size:28px;margin-bottom:20px;color:#9d0208;}
-.video iframe{border-radius:15px;box-shadow:0 6px 25px rgba(0,0,0,.2);}
-
-/* MODAL */
-.modal{
-display:none;position:fixed;z-index:2000;left:0;top:0;width:100%;height:100%;
-background-color:rgba(0,0,0,0.5);align-items:center;justify-content:center;
+.video-frame{
+padding:16px;
+background:rgba(255,255,255,.82);
+border-radius:26px;
+box-shadow:0 16px 36px rgba(0,0,0,.12);
+border:1px solid rgba(157,2,8,.08);
 }
-.modal-content{
-background-color:#fefefe;padding:30px;border-radius:15px;max-width:500px;
-box-shadow:0 8px 30px rgba(0,0,0,0.3);position:relative;
+.video iframe{
+border-radius:18px;
+box-shadow:0 6px 25px rgba(0,0,0,.18);
+width:100%;
 }
-.modal-content h2{color:#9d0208;margin-bottom:15px;font-size:24px;}
-.modal-content h3{color:#d62828;margin-top:20px;margin-bottom:15px;}
-.modal-content ul{list-style:none;margin-bottom:25px;}
-.modal-content li{padding:8px 0;color:#333;border-bottom:1px solid #f0f0f0;}
-.close{position:absolute;right:15px;top:15px;font-size:28px;font-weight:bold;cursor:pointer;color:#9d0208;}
-.close:hover{color:#d62828;}
 
-footer{text-align:center;padding:25px;background:#9d0208;color:white;font-size:14px;margin-top:40px;}
-
-@media(max-width:768px){
-.nav-links{display:none;flex-direction:column;background:rgba(157,2,8,0.95);position:absolute;top:60px;right:0;width:200px;padding:15px;border-radius:6px;}
-.nav-links.active{display:flex;}
-.nav-links a{margin:10px 0;}
-.menu-toggle{display:block;}
-.hero h1{font-size:28px;}
-.hero p{font-size:16px;}
-.countdown{font-size:26px;}
-}
-/* MODAL */
 .modal{
 display:none;
 position:fixed;
@@ -101,12 +230,11 @@ align-items:center;
 justify-content:center;
 animation:fadeBg .35s ease;
 }
-
 .modal-content{
 background:#fff;
 padding:30px;
-border-radius:18px;
-max-width:480px;
+border-radius:22px;
+max-width:500px;
 width:90%;
 box-shadow:0 20px 60px rgba(0,0,0,.45);
 position:relative;
@@ -114,21 +242,12 @@ transform:scale(.7);
 opacity:0;
 animation:modalIn .45s cubic-bezier(.17,.84,.44,1) forwards;
 }
-
-@keyframes modalIn{
-to{transform:scale(1);opacity:1;}
-}
-
-@keyframes fadeBg{
-from{background:rgba(0,0,0,0);}
-to{background:rgba(0,0,0,0.65);}
-}
-
+@keyframes modalIn{to{transform:scale(1);opacity:1;}}
+@keyframes fadeBg{from{background:rgba(0,0,0,0);}to{background:rgba(0,0,0,0.65);}}
 .modal-content h2{color:#9d0208;margin-bottom:15px;font-size:24px;}
 .modal-content h3{color:#d62828;margin-top:20px;margin-bottom:15px;}
 .modal-content ul{list-style:none;margin-bottom:25px;}
 .modal-content li{padding:8px 0;color:#333;border-bottom:1px solid #f0f0f0;}
-
 .close{
 position:absolute;
 right:15px;top:15px;
@@ -140,19 +259,55 @@ transition:.25s;
 transform:rotate(90deg) scale(1.2);
 color:#d62828;
 }
-.lema{font-size:20px;
+.lema{
+font-size:20px;
 color:#fff;
 font-style:italic;
 margin-bottom:15px;
-transform: matrix();
-
+}
+footer{
+text-align:center;
+padding:25px;
+background:#9d0208;
+color:white;
+font-size:14px;
+margin-top:40px;
 }
 body::before{
 content:"";
 position:fixed;
-inset:0;background:url("img/3.png") center/cover no-repeat;
+inset:0;
+background:url("img/3.png") center/cover no-repeat;
 filter:blur(12px) brightness(.7);
 z-index:-2;
+}
+
+@media(max-width:900px){
+.nav-links{
+display:none;
+flex-direction:column;
+background:rgba(157,2,8,0.97);
+position:absolute;
+top:74px;
+right:16px;
+width:220px;
+padding:15px;
+border-radius:18px;
+box-shadow:0 18px 30px rgba(0,0,0,.2);
+}
+.nav-links.active{display:flex;}
+.nav-links a{margin:0;}
+.menu-toggle{display:block;}
+.cards-grid{grid-template-columns:1fr;}
+}
+
+@media(max-width:768px){
+.hero{min-height:auto;padding:34px 16px 44px;}
+.hero-content{padding:24px 18px;}
+.hero h1{font-size:30px;}
+.hero p{font-size:16px;}
+.countdown{font-size:24px;padding:14px 20px;}
+.video iframe{height:260px;}
 }
 </style>
 </head>
@@ -162,7 +317,7 @@ z-index:-2;
 <nav class="navbar">
 <div class="nav-container">
 <div class="logo-container">
-<img src="img/logo.png">
+<img src="img/logo.png" alt="Logo">
 <div class="brand-text">
 <strong>Congreso Juvenil 2026</strong>
 <span>Circuito 2 · Zona 6</span>
@@ -172,20 +327,23 @@ z-index:-2;
 <a href="home.html">Inicio</a>
 <a href="Basedatos.html">Ver Inscritos</a>
 <a href="contacto.html">Contacto</a>
-<a href="index.html">Recargar..</a>
+<a href="pasarelapago.html">Pagos</a>
 <a href="Evento.html">Eventos</a>
 </div>
 <div class="menu-toggle">&#9776;</div>
 </div>
 </nav>
 
-<header class="hero" style="background-image:url('img/WhatsApp\ Image\ 2026-02-19\ at\ 18.27.17.jpeg');">
+<header class="hero" style="background-image:url('img/WhatsApp Image 2026-02-19 at 18.27.17.jpeg');">
 <div class="hero-content">
-<img src="img/logo.png" alt="58">
+<img src="img/logo.png" alt="Logo congreso">
 <h1>Congreso Juvenil 2026 - Transcendentales</h1>
-<h2 class="lema">lema: "Fe mas Accion"</h2>
+<h2 class="lema">Lema: "Fe más Acción"</h2>
 <p>Circuito 2 - Zona 6</p>
+<div class="hero-actions">
 <a href="form.html" class="btn-primary">Ir a inscripción</a>
+<a href="pasarelapago.html" class="btn-secondary">Panel de pagos</a>
+</div>
 </div>
 </header>
 
@@ -194,24 +352,42 @@ z-index:-2;
 <div class="countdown" id="countdown">Cargando...</div>
 </section>
 
+<section class="cards-section">
+<div class="cards-grid">
+<article class="info-card">
+<h3>Inscripción oficial</h3>
+<p>Accede al formulario de inscripción y confirma la participación de cada campista de manera organizada.</p>
+</article>
+<article class="info-card">
+<h3>Control de pagos</h3>
+<p>Consulta participantes, registra abonos y administra comprobantes desde un panel pensado para el equipo organizador.</p>
+</article>
+<article class="info-card">
+<h3>Información centralizada</h3>
+<p>Revisa el listado de inscritos, eventos y contactos desde una experiencia más limpia y adaptable en cualquier pantalla.</p>
+</article>
+</div>
+</section>
+
 <section class="video">
 <h2>Video Destacado</h2>
-<iframe width="100%" height="400" src="https://www.youtube.com/embed/qZPH2gG3BEE?start=97" frameborder="0" allowfullscreen></iframe>
+<div class="video-frame">
+<iframe height="420" src="https://www.youtube.com/embed/qZPH2gG3BEE?start=97" frameborder="0" allowfullscreen></iframe>
+</div>
 </section>
 
 <div class="modal" id="welcomeModal">
 <div class="modal-content">
 <span class="close">&times;</span>
 <h2>¡Bienvenido al Congreso Juvenil 2026!</h2>
-<h3>📋 Instrucciones Principales:</h3>
+<h3>Instrucciones principales</h3>
 <ul>
 <li><strong>Inscripción:</strong> Haz clic en "Ir a inscripción" para registrarte</li>
-<li><strong>Ver Inscritos:</strong> Consulta la lista de participantes confirmados</li>
+<li><strong>Ver inscritos:</strong> Consulta la lista de participantes confirmados</li>
 <li><strong>Contacto:</strong> Escríbenos tus dudas y preguntas</li>
 <li><strong>Actualización:</strong> Revisa fechas, horarios y novedades</li>
 </ul>
-<p>¡Estamos emocionados de contar contigo en este evento inolvidable! 🙌</p>
-
+<p>Estamos emocionados de contar contigo en este evento inolvidable.</p>
 </div>
 </div>
 
@@ -219,13 +395,10 @@ z-index:-2;
 
 <script>
 document.addEventListener("DOMContentLoaded", function(){
-
-/* MENU MOVIL */
 const toggle=document.querySelector('.menu-toggle');
 const navLinks=document.querySelector('.nav-links');
 toggle.addEventListener('click',()=>navLinks.classList.toggle('active'));
 
-/* MODAL SIEMPRE VISIBLE */
 const modal=document.getElementById('welcomeModal');
 const closeBtn=document.querySelector('.close');
 
@@ -235,13 +408,10 @@ modal.style.display='none';
 
 closeBtn.addEventListener('click',closeModal);
 
-/* aparece siempre al cargar */
 setTimeout(()=>{
 modal.style.display='flex';
 },700);
 
-
-/* COUNTDOWN */
 function updateCountdown(){
 const targetDate=new Date('December 5, 2026 00:00:00').getTime();
 const now=new Date().getTime();
@@ -261,21 +431,8 @@ document.getElementById('countdown').innerHTML='¡El Congreso ha comenzado!';
 
 updateCountdown();
 setInterval(updateCountdown,1000);
-
 });
-function closeModal(){
-modal.style.opacity='0';
-modal.style.transition='0.3s';
-
-setTimeout(()=>{
-modal.style.display='none';
-modal.style.opacity='1';
-},300);
-}
-
 </script>
-
-
 
 </body>
 </html>

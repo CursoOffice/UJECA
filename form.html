@@ -49,7 +49,6 @@ button:hover{background:#b00000;transform:translateY(-2px);}
 
 #estado{margin-top:20px;text-align:center;font-weight:600;font-size:16px;color:#111827;}
 
-/* HEADER */
 .topbar{
 position:fixed;top:0;left:0;width:100%;height:70px;background:#b51d1d;color:white;
 display:flex;align-items:center;z-index:1000;box-shadow:0 5px 15px rgba(0,0,0,0.2);
@@ -63,7 +62,6 @@ display:flex;align-items:center;z-index:1000;box-shadow:0 5px 15px rgba(0,0,0,0.
 .menu a{color:white;text-decoration:none;margin-left:25px;font-weight:500;transition:.2s;}
 .menu a:hover{opacity:.7;}
 
-/* MODALES */
 .modal,.modal-confirmacion,.modal-bienvenida{
 display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);
 backdrop-filter:blur(5px);align-items:center;justify-content:center;z-index:2000;
@@ -72,6 +70,7 @@ backdrop-filter:blur(5px);align-items:center;justify-content:center;z-index:2000
 background:white;padding:35px;border-radius:18px;width:90%;max-width:500px;
 box-shadow:0 20px 50px rgba(0,0,0,0.3);animation:zoomIn .3s ease;border-top:6px solid #d60000;
 }
+.modal-content{max-width:640px;}
 
 .modal-bienvenida-content{text-align:center;}
 .modal-bienvenida-content h1{font-size:32px;margin-bottom:10px;}
@@ -86,6 +85,26 @@ box-shadow:0 20px 50px rgba(0,0,0,0.3);animation:zoomIn .3s ease;border-top:6px 
 .botones-confirmacion button{flex:1;margin-top:0;}
 .btn-cancelar{background:#6b7280;}
 .btn-cancelar:hover{background:#4b5563;}
+
+.ticket-descuento{
+margin-top:18px;
+padding:18px;
+border-radius:16px;
+background:linear-gradient(135deg,#fff4d6,#ffe8a3);
+border:1px dashed #d60000;
+color:#7a1c1c;
+text-align:left;
+}
+.ticket-descuento strong{
+display:block;
+font-size:18px;
+margin-bottom:6px;
+}
+.ticket-descuento span{
+display:block;
+font-size:14px;
+margin-top:3px;
+}
 
 @keyframes zoomIn{from{transform:scale(.8);opacity:0;}to{transform:scale(1);opacity:1;}}
 </style>
@@ -142,13 +161,13 @@ box-shadow:0 20px 50px rgba(0,0,0,0.3);animation:zoomIn .3s ease;border-top:6px 
 <input name="Pastor" placeholder="Nombre del pastor">
 
 <select name="Asistencia">
-<option value="Sí">Asistirá al evento</option>
+<option value="Si">Asistirá al evento</option>
 <option value="No">No asistirá</option>
 </select>
 
 <select name="tipo">
 <option>Joven</option>
-<option>Líder</option>
+<option>Lider</option>
 <option>Pastor</option>
 <option>Invitado</option>
 </select>
@@ -170,21 +189,18 @@ box-shadow:0 20px 50px rgba(0,0,0,0.3);animation:zoomIn .3s ease;border-top:6px 
 <p id="Estado"></p>
 </div>
 
-<!-- MODAL BIENVENIDA -->
 <div id="modalBienvenida" class="modal-bienvenida">
 <div class="modal-bienvenida-content">
 <img src="img/logo.png" class="icono">
 
-<h1>¡Bienvenido!</h1>
-<p>Estimado campista, por favor completa el formulario para confirmar tu inscripción. recuerda que el evento se llevará a cabo del 5 al 8 de noviembre de 2026 en la ciudad de Medellín.</p>
+<h1>Bienvenido</h1>
+<p>Estimado campista, por favor completa el formulario para confirmar tu inscripción. Recuerda que el evento se llevará a cabo del 5 al 8 de noviembre de 2026 en la ciudad de Medellín.</p>
 <p>Si tienes alguna pregunta, no dudes en contactarnos a través de nuestras redes sociales o correo electrónico.</p>
 <p>infocircuito@gmail.com</p>
 <button onclick="cerrarBienvenida()">Continuar</button>
 </div>
 </div>
 
-
-<!-- MODAL CONFIRMACION -->
 <div id="modalConfirmacion" class="modal-confirmacion">
 <div class="modal-confirmacion-content">
 <h2>Confirmar Datos</h2>
@@ -196,23 +212,23 @@ box-shadow:0 20px 50px rgba(0,0,0,0.3);animation:zoomIn .3s ease;border-top:6px 
 </div>
 </div>
 
-<!-- MODAL EXITO -->
 <div id="modal" class="modal">
 <div class="modal-content">
-<h2>¡Inscripción Confirmada!</h2>
+<h2>Inscripción Confirmada</h2>
 <h2>Estimado campista, tu inscripción ha sido registrada exitosamente.</h2>
 <p id="modalMensaje"></p>
+<div id="ticketDescuento" class="ticket-descuento" style="display:none;"></div>
 <button onclick="cerrarModal()">Cerrar</button>
 </div>
 </div>
 
+<script src="api-config.js"></script>
 <script>
-const url="https://script.google.com/macros/s/AKfycbw5f_FwkEYj3TphPFUirQidqCFsnB-gP2WodNpP2g_KRF17ZL0tQacyESenbkiY3q4Z/exec";
+const url=window.UJECA_API.registro;
 let datosFormulario=null;
-
-/* =========================
-   MODAL BIENVENIDA
-========================= */
+let totalInscritosActual=0;
+const LIMITE_DESCUENTO=50;
+const PORCENTAJE_DESCUENTO=10;
 
 window.addEventListener("load",()=>{
     document.getElementById("modalBienvenida").style.display="flex";
@@ -222,14 +238,11 @@ function cerrarBienvenida(){
     document.getElementById("modalBienvenida").style.display="none";
 }
 
-/* =========================
-   CARGAR CUPOS
-========================= */
-
 async function cargarCupos(){
     try{
         let r=await fetch(url);
         let data=await r.json();
+        totalInscritosActual=Number(data.total || 0);
         document.getElementById("cupos").innerHTML="Cupos disponibles: "+data.disponibles+" de 500";
     }catch{
         document.getElementById("cupos").innerHTML="Cargando cupos...";
@@ -237,32 +250,59 @@ async function cargarCupos(){
 }
 cargarCupos();
 
-/* =========================
-   PREPARAR ENVÍO
-========================= */
-
 function prepararEnvio(){
     let form=document.getElementById("formulario");
+    if(!form.reportValidity()) return;
+
     let datos=Object.fromEntries(new FormData(form).entries());
     datos.token="UJECA2026";
+    datos.FechaRegistro=new Date().toISOString();
+    const puestoEstimado=totalInscritosActual+1;
+    const aplicaDescuento=puestoEstimado<=LIMITE_DESCUENTO;
+    datos.Puesto=puestoEstimado;
+    datos.AplicaDescuento=aplicaDescuento ? "Si" : "No";
+    datos.DescuentoPorcentaje=aplicaDescuento ? PORCENTAJE_DESCUENTO : 0;
     mostrarConfirmacion(datos);
 }
-
-/* =========================
-   MOSTRAR CONFIRMACIÓN
-========================= */
 
 function mostrarConfirmacion(datos){
     datosFormulario=datos;
     let html="";
+    const camposOcultos=["token","FechaRegistro","Puesto","AplicaDescuento","DescuentoPorcentaje"];
+    const etiquetas={
+        Nombre:"Nombre",
+        Documento:"Documento",
+        Edad:"Edad",
+        Sexo:"Sexo",
+        Telefono:"Telefono",
+        Correo:"Correo",
+        Pais:"Pais",
+        Departamento:"Departamento",
+        Municipio:"Municipio",
+        Iglesia:"Iglesia",
+        Pastor:"Pastor",
+        Asistencia:"Asistencia",
+        tipo:"Tipo",
+        Emergencia_nombre:"Contacto de emergencia",
+        Emergencia_telefono:"Telefono de emergencia",
+        Alergias:"Alergias",
+        Observaciones:"Observaciones"
+    };
     for(let k in datos){
-        if(k!=="token"&&datos[k]){
+        if(!camposOcultos.includes(k)&&datos[k]){
             html+=`
             <div class="dato-item">
-                <span class="dato-label">${k}</span>
+                <span class="dato-label">${etiquetas[k] || k}</span>
                 <span>${datos[k]}</span>
             </div>`;
         }
+    }
+    if(datos.AplicaDescuento==="Si"){
+        html+=`
+        <div class="dato-item">
+            <span class="dato-label">Beneficio</span>
+            <span>${datos.DescuentoPorcentaje}% de descuento por estar entre los primeros ${LIMITE_DESCUENTO} inscritos</span>
+        </div>`;
     }
     document.getElementById("datosConfirmacionContent").innerHTML=html;
     document.getElementById("modalConfirmacion").style.display="flex";
@@ -272,34 +312,67 @@ function cancelarConfirmacion(){
     document.getElementById("modalConfirmacion").style.display="none";
 }
 
-/* =========================
-   ENVIAR INSCRIPCIÓN
-========================= */
-
 async function enviarInscripcion(){
     document.getElementById("modalConfirmacion").style.display="none";
+    document.getElementById("Estado").innerHTML="Enviando inscripcion...";
 
-    let r=await fetch(url,{
-        method:"POST",
-        body:JSON.stringify(datosFormulario)
-    });
+    try{
+        let r=await fetch(url,{
+            method:"POST",
+            headers:{
+                "Content-Type":"text/plain;charset=utf-8"
+            },
+            body:JSON.stringify(datosFormulario)
+        });
 
-    let j=await r.json();
+        let texto=await r.text();
+        let j={};
 
-    document.getElementById("modalMensaje").innerHTML="Código: "+j.codigo;
-    document.getElementById("modal").style.display="flex";
+        try{
+            j=JSON.parse(texto);
+        }catch{
+            if(!r.ok) throw new Error("Respuesta no valida del servidor");
+        }
 
-    let inscritos=JSON.parse(localStorage.getItem('inscritos')||'[]');
-    inscritos.push(datosFormulario);
-    localStorage.setItem('inscritos',JSON.stringify(inscritos));
+        if(!r.ok){
+            throw new Error(j.error || "No se pudo registrar en la base remota");
+        }
 
-    document.getElementById("formulario").reset();
-    cargarCupos();
+        guardarRegistroLocalUJECA(datosFormulario);
+        document.getElementById("modalMensaje").innerHTML="Codigo: "+(j.codigo || "Pendiente de asignacion");
+        mostrarTicketDescuento(datosFormulario, j.codigo || "");
+        document.getElementById("modal").style.display="flex";
+        document.getElementById("Estado").innerHTML="Inscripcion registrada correctamente.";
+        document.getElementById("formulario").reset();
+        cargarCupos();
+    }catch(error){
+        guardarRegistroLocalUJECA({
+            ...datosFormulario,
+            EstadoRegistro:"Pendiente de sincronizacion"
+        });
+        document.getElementById("modalMensaje").innerHTML="Tu registro quedo guardado en este equipo. Error: "+error.message;
+        mostrarTicketDescuento(datosFormulario, "");
+        document.getElementById("modal").style.display="flex";
+        document.getElementById("Estado").innerHTML="Fallo el envio al Excel en linea; se guardo una copia local.";
+    }
 }
 
-/* =========================
-   CERRAR MODAL FINAL
-========================= */
+function mostrarTicketDescuento(datos, codigo){
+    const ticket=document.getElementById("ticketDescuento");
+    if(datos && datos.AplicaDescuento==="Si"){
+        ticket.style.display="block";
+        ticket.innerHTML=`
+            <strong>Ticket promocional de descuento</strong>
+            <span>Campista: ${datos.Nombre || "Sin nombre"}</span>
+            <span>Codigo: ${codigo || "Pendiente de asignacion"}</span>
+            <span>Puesto promocional estimado: #${datos.Puesto || "-"}</span>
+            <span>Beneficio: ${datos.DescuentoPorcentaje || PORCENTAJE_DESCUENTO}% de descuento por estar entre los primeros ${LIMITE_DESCUENTO} inscritos.</span>
+        `;
+    }else{
+        ticket.style.display="none";
+        ticket.innerHTML="";
+    }
+}
 
 function cerrarModal(){
     document.getElementById("modal").style.display="none";
